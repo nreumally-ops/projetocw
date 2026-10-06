@@ -718,20 +718,16 @@
     if (actions) {
       actions.style.opacity = "1";
       actions.style.transform = "none";
+      while (actions.children.length > 1) {
+        actions.lastElementChild.remove();
+      }
     }
 
-    let market = document.getElementById(marketId);
-    if (!market) {
-      market = createMarketSection();
-      document.body.appendChild(market);
-    }
+    const market = document.getElementById(marketId);
+    if (market) market.remove();
 
-    const labels =
-      language === "PT"
-        ? { support: "APOIE", vote: "VOTAR" }
-        : { support: "SUPPORT", vote: "VOTE" };
-    configureHeroAction(hero, "Criar seu perfil", "support", labels.support);
-    configureHeroAction(hero, "Explorar perfis", "vote", labels.vote);
+    const supportLabel = language === "PT" ? "APOIE" : "SUPPORT";
+    configureHeroAction(hero, "Criar seu perfil", "support", supportLabel);
 
     root.querySelectorAll("section").forEach((section) => {
       if (section !== hero) {
@@ -745,11 +741,6 @@
       footer.setAttribute("aria-hidden", "true");
     }
 
-    if (market.dataset.counterInitialized !== "true") {
-      market.dataset.counterInitialized = "true";
-      loadMarketStats(market);
-      window.setInterval(() => loadMarketStats(market), 30000);
-    }
   }
 
   function applyBranding() {
