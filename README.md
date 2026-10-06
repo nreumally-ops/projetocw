@@ -2,8 +2,10 @@
 
 Production-ready static build for the Bolsonaropl Vercel project.
 
+## Change history
+
+- 2026-10-06: Removed the homepage background video and its audio control from the new project copy.
+
 - `index.html` serves the restored Ikiss-style bio homepage.
 - `assets/` contains the compiled JavaScript and CSS bundles.
-- `bolsonaropl.mp4` is the homepage background video.
-- The homepage uses one looping video decoder and fills the screen on mobile; this can crop the sides of the frame.
-- The video attempts audible autoplay at 35% volume. If the browser blocks it, the video starts muted and the on-screen control can enable or disable its original audio.
+- The homepage displays without a background video or video audio control.
