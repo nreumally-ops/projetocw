@@ -18,20 +18,54 @@ import psycopg
 ROOT = Path(__file__).resolve().parent
 SUPPORT_COUNT_PATH = "/api/support-count"
 BRAZIL_TIME = ZoneInfo("America/Sao_Paulo")
+PUBLIC_ASSET_SUFFIXES = {
+    ".css", ".js", ".jpg", ".jpeg", ".png", ".svg", ".ico", ".webp", ".gif",
+    ".woff", ".woff2", ".mp3", ".mp4",
+}
+SECURITY_HEADERS = {
+    "Content-Security-Policy": (
+        "default-src 'self'; "
+        "base-uri 'self'; "
+        "object-src 'none'; "
+        "frame-ancestors 'none'; "
+        "form-action 'self'; "
+        "script-src 'self'; "
+        "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "
+        "font-src 'self' https://fonts.gstatic.com data:; "
+        "img-src 'self' data: https://flagcdn.com; "
+        "connect-src 'self'; "
+        "media-src 'self' blob:; "
+        "frame-src 'none'"
+    ),
+    "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
+    "Referrer-Policy": "strict-origin-when-cross-origin",
+    "Strict-Transport-Security": "max-age=31536000",
+    "X-Content-Type-Options": "nosniff",
+    "X-Frame-Options": "DENY",
+}
 PUBLIC_FILES = {
     path.name
     for path in ROOT.iterdir()
     if path.is_file()
-    and path.suffix.lower() in {".html", ".png", ".jpg", ".jpeg", ".svg", ".ico", ".mp3", ".mp4", ".webp"}
+    and path.suffix.lower() in {".html", ".png", ".jpg", ".jpeg", ".svg", ".ico", ".mp3", ".mp4", ".webp", ".gif"}
 }
 PUBLIC_FILES.add("branding.js")
+TRUSTED_PROXY_NETWORKS = tuple(
+    ipaddress.ip_network(value.strip(), strict=False)
+    for value in os.environ.get("TRUSTED_PROXY_CIDRS", "").split(",")
+    if value.strip()
+)
 
 
 def open_database_connection():
     database_url = os.environ.get("DATABASE_URL")
     if not database_url:
         raise RuntimeError("DATABASE_URL is required for the support counter.")
-    return psycopg.connect(database_url)
+    return psycopg.connect(
+        database_url,
+        connect_timeout=5,
+        options="-c statement_timeout=8000 -c lock_timeout=3000",
+    )
 
 
 def ensure_support_schema(cursor):
@@ -62,6 +96,13 @@ def ensure_support_schema(cursor):
 
 
 class SiteHandler(SimpleHTTPRequestHandler):
+    def setup(self):
+        super().setup()
+        self.connection.settimeout(10)
+
+    def version_string(self):
+        return "CWMunista"
+
     def send_json(self, status, payload):
         body = json.dumps(payload, ensure_ascii=False).encode("utf-8")
         self.send_response(status)
@@ -74,28 +115,53 @@ class SiteHandler(SimpleHTTPRequestHandler):
 
     def get_client_ip_hash(self):
         secret = os.environ.get("SESSION_SECRET")
-        if not secret:
-            raise RuntimeError("SESSION_SECRET is required to protect IP-based counts.")
+        if not secret or len(secret.encode("utf-8")) < 32:
+            raise RuntimeError("SESSION_SECRET must contain at least 32 bytes.")
 
-        forwarded_for = self.headers.get("X-Forwarded-For", "")
-        candidates = [value.strip() for value in forwarded_for.split(",")]
-        candidates.append(self.client_address[0])
-
-        client_ip = None
-        for candidate in candidates:
-            try:
-                client_ip = ipaddress.ip_address(candidate).compressed
+        peer_ip = ipaddress.ip_address(self.client_address[0])
+        client_ip = peer_ip
+        if any(peer_ip in network for network in TRUSTED_PROXY_NETWORKS):
+            forwarded_for = self.headers.get("X-Forwarded-For", "")
+            for candidate in reversed(forwarded_for.split(",")):
+                try:
+                    forwarded_ip = ipaddress.ip_address(candidate.strip())
+                except ValueError:
+                    continue
+                if any(forwarded_ip in network for network in TRUSTED_PROXY_NETWORKS):
+                    continue
+                client_ip = forwarded_ip
                 break
-            except ValueError:
-                continue
-        if client_ip is None:
-            raise ValueError("Could not determine the client IP address.")
 
         return hmac.new(
             secret.encode("utf-8"),
-            client_ip.encode("utf-8"),
+            client_ip.compressed.encode("utf-8"),
             hashlib.sha256,
         ).hexdigest()
+
+    def is_same_origin_request(self):
+        origin = self.headers.get("Origin")
+        host = self.headers.get("Host")
+        if not origin or not host:
+            return False
+        try:
+            origin_parts = urlsplit(origin)
+            host_parts = urlsplit(f"//{host}")
+            if (
+                origin_parts.scheme not in {"http", "https"}
+                or not origin_parts.hostname
+                or not host_parts.hostname
+                or origin_parts.path not in {"", "/"}
+                or origin_parts.query
+                or origin_parts.fragment
+            ):
+                return False
+            default_port = 443 if origin_parts.scheme == "https" else 80
+            return (
+                origin_parts.hostname.casefold() == host_parts.hostname.casefold()
+                and (origin_parts.port or default_port) == (host_parts.port or default_port)
+            )
+        except ValueError:
+            return False
 
     def get_support_stats(self):
         now = datetime.now(BRAZIL_TIME)
@@ -176,11 +242,19 @@ class SiteHandler(SimpleHTTPRequestHandler):
             self.send_json(404, {"error": "Endpoint não encontrado."})
             return
 
+        if not self.is_same_origin_request():
+            self.send_json(403, {"error": "Origem da solicitação não permitida."})
+            return
+
         if self.headers.get_content_type() != "application/json":
             self.send_json(415, {"error": "Envie a solicitação como JSON."})
             return
+        content_length_header = self.headers.get("Content-Length", "0")
+        if not content_length_header.isascii() or not content_length_header.isdecimal():
+            self.send_json(400, {"error": "Tamanho da solicitação inválido."})
+            return
         try:
-            content_length = int(self.headers.get("Content-Length", "0"))
+            content_length = int(content_length_header)
         except ValueError:
             self.send_json(400, {"error": "Tamanho da solicitação inválido."})
             return
@@ -192,7 +266,7 @@ class SiteHandler(SimpleHTTPRequestHandler):
         except (json.JSONDecodeError, UnicodeDecodeError):
             self.send_json(400, {"error": "JSON inválido."})
             return
-        if not isinstance(payload, dict):
+        if payload != {}:
             self.send_json(400, {"error": "Formato inválido."})
             return
 
@@ -239,10 +313,14 @@ class SiteHandler(SimpleHTTPRequestHandler):
             return None
         is_public = (
             path.lstrip("/") in PUBLIC_FILES
-            or (path.startswith("/assets/") and target.is_file())
+            or (
+                path.startswith("/assets/")
+                and target.is_file()
+                and target.suffix.lower() in PUBLIC_ASSET_SUFFIXES
+            )
         )
         if not is_public:
-            if path == "/" or not Path(path).suffix:
+            if path == "/":
                 self.path = "/index.html"
             else:
                 self.send_error(404)
@@ -251,6 +329,8 @@ class SiteHandler(SimpleHTTPRequestHandler):
 
     def end_headers(self):
         self.send_header("Cache-Control", "no-cache")
+        for name, value in SECURITY_HEADERS.items():
+            self.send_header(name, value)
         super().end_headers()
 
 

@@ -1,27 +1,210 @@
 (() => {
-  const paymentUrl = "https://pay.cakto.com.br/3ac3n8a_1169581";
+  if (window.location.pathname !== "/") {
+    window.location.replace("/");
+    return;
+  }
+
+  const supportUrl = "https://x.com/cwmunista";
   const marketId = "campaign-support-market";
 
   const campaign = {
     PT: {
-      tagline: "frente de resgate patriota",
-      headings: ["O BRASIL", "LIVRE", "DO PT"],
-      description:
-        "o movimento verde e amarelo mais poderoso e conservador. defesa da família, liberdade de expressão, armamento para o cidadão de bem, expulsão da quadrilha petista, o país de volta para você.",
+      tagline: "contra a hegemonia",
+      headings: ["organizar pra vencer.", "", ""],
+      description: "a teoria na prática. a mídia da classe precisa da sua força pra rodar.",
     },
     EN: {
-      tagline: "A patriotic front to rescue Brazil",
-      headings: ["A FREE", "BRAZIL", "WITHOUT THE PT"],
-      description:
-        "The strongest green-and-yellow conservative movement: defending families and freedom of expression, supporting the right to bear arms for law-abiding citizens, removing the PT, and giving the country back to you.",
+      tagline: "against hegemony",
+      headings: ["organize to win.", "", ""],
+      description: "theory in practice. the media of the class needs your support to keep running.",
     },
   };
+  const navigationMenuItems = [
+    { title: "Home", href: "#home", icon: "Home", view: "home" },
+    { title: "Blog", href: "#blog", icon: "Rss", view: "blog" },
+    { title: "Docs", href: "#docs", icon: "BookOpen", view: "docs" },
+  ];
+  const documentResources = [
+    {
+      category: "Biblioteca digital",
+      title: "Arquivo Marxista na Internet",
+      description: "Biblioteca em português com textos, dicionário, novidades e materiais temáticos.",
+      cover: "/assets/karl-marx-og.webp",
+      coverAlt: "Retrato de Karl Marx",
+      href: "https://www.marxists.org/portugues/",
+      action: "Explorar arquivo",
+    },
+    {
+      category: "Livro em PDF",
+      title: "Dicionário do Pensamento Marxista",
+      description: "Versão digital em PDF hospedada pelo portal Marxismo 21.",
+      cover: "/assets/dicionario.marx.jpg",
+      coverAlt: "Capa do Dicionário do Pensamento Marxista",
+      coverFit: "contain",
+      href: "https://marxismo21.org/wp-content/uploads/2012/12/Dicion-rio-do-Pensamento-Marxista.pdf",
+      action: "Abrir PDF",
+    },
+  ];
+  const socialProfiles = [
+    {
+      network: "X",
+      name: "☭",
+      handle: "@cwmunista",
+      bio: "opressor da burguesia",
+      href: "https://x.com/cwmunista",
+      banner: "/assets/cwmunista-x-banner.jpg",
+      avatar: "/assets/cwmunista-x-avatar.jpg",
+    },
+    {
+      network: "X",
+      name: "☭ BolcheBased ☭",
+      handle: "@BolcheBased",
+      bio: "Patriota e comunista, financiado pelo Soros para espalhar o marxismo cultural pelo mundo... | Estudante de Relações Internacionais!",
+      href: "https://x.com/BolcheBased",
+      banner: "/assets/bolchebased-x-banner.jpg",
+      avatar: "/assets/bolchebased-x-avatar.jpg",
+    },
+  ];
+  const organizationGroups = [
+    {
+      title: "Partidos",
+      tabLabel: "Partidos",
+      organizations: [
+        {
+          title: "UP - Unidade Popular",
+          image: "/assets/logos/up.webp",
+          imageAlt: "Logo da Unidade Popular",
+          href: "https://unidadepopular.org.br/",
+        },
+        {
+          title: "PCB - Partido Comunista Brasileiro",
+          image: "/assets/logos/pcb.webp",
+          imageAlt: "Logo do Partido Comunista Brasileiro",
+          href: "https://pcb.org.br/portal2/",
+        },
+        {
+          title: "PCB-RR - PCB Reconstrução Revolucionária",
+          image: "/assets/logos/pcbrr.jpg",
+          imageAlt: "Logo do PCB Reconstrução Revolucionária",
+          href: "https://www.instagram.com/pcbrr_rp/",
+        },
+        {
+          title: "PSTU - Partido Socialista dos Trabalhadores Unificado",
+          image: "/assets/logos/pstu-redimensionado.jpg",
+          imageAlt: "Logo do PSTU",
+          href: "https://www.pstu.org.br/",
+        },
+        {
+          title: "PCO - Partido da Causa Operária",
+          image: "/assets/logos/pco-redimensionado.png",
+          imageAlt: "Logo do Partido da Causa Operária",
+          href: "https://pco.org.br/",
+        },
+        {
+          title: "PSOL - Partido Socialismo e Liberdade",
+          image: "/assets/logos/psol.svg",
+          imageAlt: "Logo do PSOL",
+          href: "https://psol50.org.br/",
+        },
+        {
+          title: "PCdoB - Partido Comunista do Brasil",
+          image: "/assets/logos/pcdob.webp",
+          imageAlt: "Logo do PCdoB",
+          href: "https://pcdob.org.br/",
+        },
+        {
+          title: "PT - Partido dos Trabalhadores",
+          image: "/assets/logos/pt.png",
+          imageAlt: "Logo do PT",
+          href: "https://pt.org.br/",
+        },
+      ],
+    },
+    {
+      title: "Movimentos Sociais de Massa",
+      tabLabel: "Movimentos",
+      organizations: [
+        {
+          title: "MST - Movimento dos Trabalhadores Rurais Sem Terra",
+          image: "/assets/logos/mst.png",
+          imageAlt: "Logo do MST",
+          href: "https://mst.org.br/",
+        },
+        {
+          title: "MTST - Movimento dos Trabalhadores Sem-Teto",
+          image: "/assets/logos/mtst.png",
+          imageAlt: "Logo do MTST",
+          href: "https://mtst.org/",
+        },
+        {
+          title: "MLB - Movimento de Luta nos Bairros, Vilas e Favelas",
+          image: "/assets/logos/mlb.png",
+          imageAlt: "Logo do MLB",
+          href: "https://www.instagram.com/mlbnacional/",
+        },
+        {
+          title: "MAM - Movimento pela Soberania Popular na Mineração",
+          image: "/assets/logos/mam.jpg",
+          imageAlt: "Logo do MAM",
+          href: "https://www.mamnacional.org.br/",
+        },
+        {
+          title: "MPA - Movimento dos Pequenos Agricultores",
+          image: "/assets/logos/mpa.jpg",
+          imageAlt: "Logo do MPA",
+          href: "https://mpabrasil.org.br/",
+        },
+        {
+          title: "MAB - Movimento dos Atingidos por Barragens",
+          image: "/assets/logos/mab.jpg",
+          imageAlt: "Logo do MAB",
+          href: "https://mab.org.br/",
+        },
+      ],
+    },
+    {
+      title: "Coletivos de Agitação, Juventude e Frentes Populares",
+      tabLabel: "Coletivos",
+      organizations: [
+        {
+          title: "UJC - União da Juventude Comunista",
+          image: "/assets/logos/ujc.jpg",
+          imageAlt: "Logo da UJC",
+          href: "https://ujc.org.br/",
+        },
+        {
+          title: "UJR - União da Juventude Rebelião",
+          image: "/assets/logos/ujr.png",
+          imageAlt: "Logo da UJR",
+          href: "https://www.rebeliao.org/",
+        },
+        {
+          title: "Coletivo Olga Benario - Movimento de Mulheres",
+          image: "/assets/logos/olga.png",
+          imageAlt: "Logo do Coletivo Olga Benario",
+          href: "https://www.movimentoolga.com/",
+        },
+        {
+          title: "Coletivo Minervino de Oliveira - Coletivo Negro Combativo",
+          image: "/assets/logos/minervino.webp",
+          imageAlt: "Logo do Coletivo Minervino de Oliveira",
+          href: "https://coletivominervinocom.wordpress.com/",
+        },
+        {
+          title: "Soberana - Coletivo de Mídia e Agitprop Popular",
+          image: "/assets/logos/soberana.png",
+          imageAlt: "Logo da Soberana",
+          href: "https://soberana.tv/",
+        },
+      ],
+    },
+  ];
 
   function backgroundVideos() {
-    return Array.from(document.querySelectorAll("video")).filter((video) => {
+    return Array.from(document.querySelectorAll("video.campaign-background-video")).filter((video) => {
       try {
-        return new URL(video.currentSrc || video.src, window.location.href).pathname ===
-          "/bolsonaropl.mp4";
+        const path = new URL(video.currentSrc || video.src, window.location.href).pathname;
+        return path === "/bolsonaropl.mp4" || path === "/ssstwitter.com_1791476129925.mp4";
       } catch {
         return false;
       }
@@ -75,13 +258,589 @@
         background: #000 !important;
         color: #fff !important;
       }
+      #campaign-background-layer {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        overflow: hidden;
+        background: #000;
+        pointer-events: none;
+      }
+      #root {
+        position: relative;
+        z-index: 1;
+      }
       #root section.campaign-hero {
-        min-height: min(760px, 82svh) !important;
+        position: relative !important;
+        isolation: isolate;
+        overflow: hidden;
+        min-height: 100svh !important;
         padding-top: 104px !important;
         padding-bottom: 48px !important;
       }
+      #root section.campaign-hero .display-heading {
+        font-family: Arial, Helvetica, sans-serif !important;
+        font-weight: 900 !important;
+        letter-spacing: 0 !important;
+        -webkit-text-stroke: 1px rgba(0, 0, 0, 0.3);
+        paint-order: stroke fill;
+        text-shadow: 5px 6px 0 rgba(0, 0, 0, 0.86), 9px 10px 0 rgba(112, 24, 24, 0.78);
+      }
+      #root section.campaign-hero p.label-caps.mb-8 {
+        display: inline-block;
+        padding: 10px 14px;
+        border-left: 3px solid #c3423f;
+        background: rgba(0, 0, 0, 0.92);
+        box-shadow: 4px 4px 0 rgba(104, 33, 35, 0.82);
+        color: #fff !important;
+        font-size: 18px !important;
+        font-weight: 800 !important;
+        letter-spacing: 0.06em;
+        line-height: 1.35;
+        text-shadow: 0 1px 2px #000;
+      }
+      #root section.campaign-hero p.max-w-md.leading-relaxed {
+        box-sizing: border-box;
+        width: min(100%, 700px);
+        max-width: 700px !important;
+        padding: 16px 20px;
+        border-left: 3px solid #c3423f;
+        background: rgba(0, 0, 0, 0.92);
+        box-shadow: 4px 4px 0 rgba(104, 33, 35, 0.82);
+        color: #fff !important;
+        font-size: 20px !important;
+        font-weight: 650 !important;
+        line-height: 1.5 !important;
+        text-shadow: 0 1px 2px #000;
+      }
+      #root section.campaign-video-preview {
+        box-sizing: border-box;
+        display: block;
+        padding: clamp(52px, 8vw, 96px) 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.14);
+        background: rgba(8, 8, 8, 0.48);
+      }
+      #root nav.campaign-navigation {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        justify-content: center;
+        padding: 18px 20px;
+        background: rgba(8, 8, 8, 0.48);
+      }
+      .campaign-navigation__list {
+        display: flex;
+        align-items: center;
+        gap: clamp(32px, 4vw, 48px);
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+      .campaign-navigation__link {
+        position: relative;
+        display: inline-flex;
+        height: 48px;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        padding: 10px 4px;
+        color: rgba(255, 255, 255, 0.82);
+        font-size: 20px;
+        font-weight: 500;
+        text-decoration: none;
+        transition: color 160ms ease;
+      }
+      .campaign-navigation__link::after {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        height: 2px;
+        background: #c3423f;
+        content: "";
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 160ms ease;
+      }
+      .campaign-navigation__link:hover,
+      .campaign-navigation__link:focus-visible {
+        color: #fff;
+      }
+      .campaign-navigation__link:hover::after,
+      .campaign-navigation__link:focus-visible::after,
+      .campaign-navigation__link[aria-current="page"]::after {
+        transform: scaleX(1);
+      }
+      .campaign-navigation__link:focus-visible {
+        outline: 2px solid #fff8ed;
+        outline-offset: 4px;
+      }
+      .campaign-navigation__link svg {
+        width: 28px;
+        height: 28px;
+        flex: 0 0 auto;
+        fill: none;
+        stroke: currentColor;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 2;
+      }
+      .campaign-navigation__icon-symbol {
+        display: inline-grid;
+        width: 28px;
+        height: 28px;
+        flex: 0 0 auto;
+        place-items: center;
+        font-family: "Segoe UI Symbol", "Arial Unicode MS", sans-serif;
+        font-size: 30px;
+        line-height: 1;
+      }
+      @media (max-width: 480px) {
+        .campaign-navigation__list {
+          gap: 24px;
+        }
+        .campaign-navigation__link {
+          height: 44px;
+          gap: 9px;
+          font-size: 17px;
+        }
+        .campaign-navigation__link svg {
+          width: 24px;
+          height: 24px;
+        }
+        .campaign-navigation__icon-symbol {
+          width: 24px;
+          height: 24px;
+          font-size: 26px;
+        }
+      }
+      .organization-directory {
+        box-sizing: border-box;
+        padding: clamp(52px, 8vw, 96px) 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.14);
+        background: rgba(8, 8, 8, 0.48);
+      }
+      .organization-directory[hidden],
+      #root section.blog-profiles[hidden],
+      #root section.docs-resources[hidden] {
+        display: none !important;
+      }
+      .organization-directory__content {
+        display: grid;
+        width: min(100%, 1240px);
+        margin: 0 auto;
+        gap: clamp(48px, 7vw, 82px);
+      }
+      #root section.blog-profiles {
+        box-sizing: border-box;
+        padding: clamp(52px, 8vw, 96px) 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.14);
+        background: rgba(8, 8, 8, 0.48);
+      }
+      #root section.docs-resources {
+        min-height: 100svh;
+      }
+      .blog-profiles__content {
+        width: min(100%, 1240px);
+        margin: 0 auto;
+      }
+      .blog-profiles__heading {
+        margin: 0 0 24px;
+        color: #fff;
+        font-size: 24px;
+        font-weight: 900;
+      }
+      .blog-profiles__grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+        grid-auto-rows: 1fr;
+        align-items: stretch;
+        gap: 28px;
+      }
+      .social-profile-card {
+        box-sizing: border-box;
+        display: flex;
+        width: min(100%, 560px);
+        height: 100%;
+        flex-direction: column;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.24);
+        background: rgba(0, 0, 0, 0.9);
+        color: #fff;
+        text-decoration: none;
+        transition: border-color 160ms ease, transform 160ms ease;
+      }
+      .social-profile-card:hover {
+        transform: translateY(-3px);
+        border-color: rgba(255, 255, 255, 0.6);
+      }
+      .social-profile-card:focus-visible {
+        outline: 2px solid #fff8ed;
+        outline-offset: 5px;
+      }
+      .social-profile-card__banner {
+        display: block;
+        width: 100%;
+        aspect-ratio: 3 / 1;
+        object-fit: cover;
+        background: #111;
+      }
+      .social-profile-card__body {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        padding: 0 20px 22px;
+      }
+      .social-profile-card__avatar {
+        display: block;
+        width: 112px;
+        height: 112px;
+        margin-top: -52px;
+        margin-bottom: 14px;
+        border: 4px solid #000;
+        border-radius: 50%;
+        object-fit: cover;
+        background: #111;
+      }
+      .social-profile-card__name {
+        display: block;
+        color: #fff;
+        font-size: 22px;
+        font-weight: 900;
+        line-height: 1.2;
+      }
+      .social-profile-card__handle {
+        display: block;
+        margin-top: 4px;
+        color: rgba(255, 255, 255, 0.62);
+        font-size: 14px;
+      }
+      .social-profile-card__bio {
+        display: block;
+        margin-top: 16px;
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 16px;
+        line-height: 1.5;
+      }
+      .social-profile-card__action {
+        display: inline-block;
+        align-self: flex-start;
+        margin-top: auto;
+        padding: 9px 12px;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        color: #fff;
+        font-size: 13px;
+        font-weight: 800;
+      }
+      .docs-resource-card {
+        box-sizing: border-box;
+        display: flex;
+        min-height: 240px;
+        height: 100%;
+        flex-direction: column;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.24);
+        background: rgba(0, 0, 0, 0.9);
+        color: #fff;
+        text-decoration: none;
+        transition: border-color 160ms ease, transform 160ms ease;
+      }
+      .docs-resource-card:hover {
+        transform: translateY(-3px);
+        border-color: rgba(255, 255, 255, 0.6);
+      }
+      .docs-resource-card:focus-visible {
+        outline: 2px solid #fff8ed;
+        outline-offset: 5px;
+      }
+      .docs-resource-card__cover {
+        display: block;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+        background: #171314;
+      }
+      .docs-resource-card__cover--contain {
+        object-fit: contain;
+      }
+      .docs-resource-card__body {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        padding: 20px;
+      }
+      .docs-resource-card__category {
+        color: rgba(255, 255, 255, 0.62);
+        font-size: 13px;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+      .docs-resource-card__title {
+        display: block;
+        margin-top: 14px;
+        font-size: 22px;
+        font-weight: 900;
+        line-height: 1.25;
+      }
+      .docs-resource-card__description {
+        display: block;
+        margin-top: 12px;
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 16px;
+        line-height: 1.5;
+      }
+      .docs-resource-card__action {
+        align-self: flex-start;
+        margin-top: auto;
+        padding: 9px 12px;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        color: #fff;
+        font-size: 13px;
+        font-weight: 800;
+      }
+      .organization-directory__tabs {
+        display: flex;
+        align-items: center;
+        gap: clamp(20px, 3.5vw, 44px);
+        margin: 0 auto clamp(38px, 6vw, 64px);
+        overflow-x: auto;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+        scrollbar-width: none;
+      }
+      .organization-directory__tabs::-webkit-scrollbar {
+        display: none;
+      }
+      .organization-directory__tab {
+        position: relative;
+        flex: 0 0 auto;
+        min-height: 54px;
+        padding: 12px 3px;
+        border: 0;
+        background: transparent;
+        color: rgba(255, 255, 255, 0.68);
+        cursor: pointer;
+        font: inherit;
+        font-size: 20px;
+        font-weight: 700;
+        white-space: nowrap;
+        transition: color 160ms ease;
+      }
+      .organization-directory__tab::after {
+        position: absolute;
+        right: 0;
+        bottom: -1px;
+        left: 0;
+        height: 2px;
+        background: #c3423f;
+        content: "";
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 160ms ease;
+      }
+      .organization-directory__tab[aria-selected="true"],
+      .organization-directory__tab:hover,
+      .organization-directory__tab:focus-visible {
+        color: #fff;
+      }
+      .organization-directory__tab[aria-selected="true"]::after,
+      .organization-directory__tab:hover::after,
+      .organization-directory__tab:focus-visible::after {
+        transform: scaleX(1);
+      }
+      .organization-directory__tab:focus-visible {
+        outline: 2px solid #fff8ed;
+        outline-offset: 5px;
+      }
+      @media (max-width: 480px) {
+        .organization-directory__tabs {
+          gap: 20px;
+        }
+        .organization-directory__tab {
+          min-height: 46px;
+          font-size: 17px;
+        }
+      }
+      .organization-directory__group {
+        display: grid;
+        gap: 22px;
+      }
+      .organization-directory__group[hidden] {
+        display: none !important;
+      }
+      .organization-directory__heading {
+        margin: 0;
+        color: #fff;
+        font-size: clamp(20px, 2vw, 28px);
+        font-weight: 900;
+        line-height: 1.2;
+      }
+      .organization-directory__heading::after {
+        display: block;
+        width: 54px;
+        height: 3px;
+        margin-top: 12px;
+        background: #c3423f;
+        content: "";
+      }
+      .organization-directory__grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+        align-items: start;
+        justify-items: start;
+        gap: 28px;
+      }
+      .organization-card {
+        box-sizing: border-box;
+        display: grid;
+        width: min(100%, 380px);
+        align-content: start;
+        gap: 14px;
+        color: #fff;
+        text-decoration: none;
+        transition: transform 160ms ease;
+      }
+      .organization-card:hover {
+        transform: translateY(-3px);
+      }
+      .organization-card:focus-visible {
+        outline: 2px solid #fff8ed;
+        outline-offset: 5px;
+      }
+      .organization-card__image {
+        display: grid;
+        width: 100%;
+        aspect-ratio: 1;
+        overflow: hidden;
+        place-items: center;
+        background: #000;
+      }
+      .organization-card__image img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        background: #000;
+      }
+      .organization-card--wide .organization-card__image {
+        aspect-ratio: 2 / 1;
+      }
+      .organization-card--wide .organization-card__image img {
+        object-fit: contain;
+      }
+      .organization-card__mark {
+        display: grid;
+        width: 100%;
+        height: 100%;
+        place-items: center;
+        overflow: hidden;
+        background: #101010;
+        color: #fff;
+        font-size: clamp(64px, 8vw, 104px);
+        font-weight: 900;
+        line-height: 1;
+        text-align: center;
+        text-shadow: 6px 6px 0 rgba(112, 24, 24, 0.82);
+      }
+      .organization-card__mark[data-long="true"] {
+        padding: 12px;
+        box-sizing: border-box;
+        font-size: clamp(36px, 4vw, 52px);
+      }
+      .organization-card__title {
+        margin: 0;
+        color: #fff;
+        font-size: 20px;
+        font-weight: 800;
+        line-height: 1.25;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .organization-card {
+          transition: none;
+        }
+        .social-profile-card {
+          transition: none;
+        }
+      }
+      #root nav button.nav-link {
+        position: relative;
+        min-height: 36px;
+        padding: 0 12px !important;
+        border: 1px solid rgba(255, 255, 255, 0.72) !important;
+        border-radius: 0 !important;
+        background: rgba(10, 10, 10, 0.88) !important;
+        box-shadow: 3px 3px 0 #742527;
+        color: #fff !important;
+        font-size: 10px !important;
+        font-weight: 900 !important;
+        letter-spacing: 0.14em;
+        transition: transform 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
+      }
+      #root nav button.nav-link::before {
+        position: absolute;
+        top: 4px;
+        bottom: 4px;
+        left: -1px;
+        width: 3px;
+        background: #c3423f;
+        content: "";
+      }
+      #root nav button.nav-link:hover {
+        transform: translate(2px, 2px);
+        background: #252020 !important;
+        box-shadow: 1px 1px 0 #742527;
+      }
+      #root section.campaign-hero button[data-campaign-action="support"] {
+        min-width: min(196px, calc(100vw - 56px));
+        min-height: 58px;
+        padding: 0 25px !important;
+        border: 1px solid #fff8ed !important;
+        border-radius: 0 !important;
+        background: #a72e30 !important;
+        clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+        color: #fff !important;
+        font-size: 15px !important;
+        font-weight: 900 !important;
+        letter-spacing: 0.14em;
+        filter: drop-shadow(4px 4px 0 #fff8ed) drop-shadow(8px 8px 0 #682123);
+        transition: transform 160ms ease, filter 160ms ease, background-color 160ms ease;
+      }
+      #root section.campaign-hero button[data-campaign-action="support"] svg {
+        margin: 0;
+        transition: transform 160ms ease;
+      }
+      #root section.campaign-hero button[data-campaign-action="support"]:hover {
+        transform: translate(4px, 4px);
+        background: #c13a3c !important;
+        filter: drop-shadow(1px 1px 0 #fff8ed) drop-shadow(3px 3px 0 #682123);
+      }
+      #root section.campaign-hero button[data-campaign-action="support"]:hover svg {
+        transform: translateX(3px);
+      }
+      #root nav button.nav-link:focus-visible,
+      #root section.campaign-hero button[data-campaign-action="support"]:focus-visible {
+        outline: 2px solid #fff8ed;
+        outline-offset: 6px;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        #root nav button.nav-link,
+        #root section.campaign-hero button[data-campaign-action="support"],
+        #root section.campaign-hero button[data-campaign-action="support"] svg {
+          transition: none;
+        }
+      }
+      #campaign-background-layer .campaign-background-video {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.68;
+        pointer-events: none;
+      }
       #root .campaign-app-shell {
         min-height: 0 !important;
+        background: transparent !important;
       }
       #root [data-campaign-hidden="true"] {
         display: none !important;
@@ -417,7 +1176,7 @@
       }
       @media (max-width: 780px) {
         #root section.campaign-hero {
-          min-height: min(720px, 84svh) !important;
+          min-height: 100svh !important;
         }
         .market-header {
           align-items: flex-start;
@@ -452,7 +1211,7 @@
       }
       @media (max-width: 480px) {
         #root section.campaign-hero {
-          min-height: min(700px, 82svh) !important;
+          min-height: 100svh !important;
           padding-inline: 18px !important;
         }
         section.campaign-market {
@@ -626,7 +1385,7 @@
         event.preventDefault();
         event.stopImmediatePropagation();
         if (action === "support") {
-          window.location.assign(paymentUrl);
+          window.location.assign(supportUrl);
           return;
         }
 
@@ -693,6 +1452,279 @@
     return button;
   }
 
+  function createNavigationMenu() {
+    const icons = {
+      Home: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>',
+      Rss: '<span class="campaign-navigation__icon-symbol" aria-hidden="true">☭</span>',
+      BookOpen: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v14"></path><path d="M3 18V5a2 2 0 0 1 2-2h3a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H3z"></path><path d="M21 18V5a2 2 0 0 0-2-2h-3a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h6z"></path></svg>',
+    };
+    const nav = document.createElement("nav");
+    nav.className = "campaign-navigation";
+    nav.setAttribute("aria-label", "Primary navigation");
+    const list = document.createElement("ul");
+    list.className = "campaign-navigation__list";
+
+    navigationMenuItems.forEach((item) => {
+      const listItem = document.createElement("li");
+      const link = document.createElement("a");
+      link.className = "campaign-navigation__link";
+      link.href = item.href;
+      if (item.isActive) link.setAttribute("aria-current", "page");
+      link.innerHTML = `${icons[item.icon]}<span>${item.title}</span>`;
+      listItem.append(link);
+      list.append(listItem);
+    });
+
+    nav.append(list);
+    return nav;
+  }
+
+  function createOrganizationCard(organization) {
+    const card = document.createElement("a");
+    card.className = "organization-card";
+    if (organization.wideLogo) card.classList.add("organization-card--wide");
+    card.href = organization.href;
+    card.target = "_blank";
+    card.rel = "noopener noreferrer";
+    card.setAttribute("aria-label", `Acessar página de ${organization.title}`);
+
+    const imageFrame = document.createElement("div");
+    imageFrame.className = "organization-card__image";
+    if (organization.image) {
+      const image = document.createElement("img");
+      image.src = organization.image;
+      image.alt = organization.imageAlt || `Logo ${organization.title}`;
+      image.loading = "lazy";
+      image.decoding = "async";
+      imageFrame.append(image);
+    } else {
+      const mark = document.createElement("span");
+      mark.className = "organization-card__mark";
+      if (organization.mark.length > 5) mark.dataset.long = "true";
+      mark.setAttribute("aria-hidden", "true");
+      mark.textContent = organization.mark;
+      imageFrame.append(mark);
+    }
+    const title = document.createElement("span");
+    title.className = "organization-card__title";
+    title.textContent = organization.title;
+    card.append(imageFrame, title);
+    return card;
+  }
+
+  function createSocialProfileCard(profile) {
+    const card = document.createElement("a");
+    card.className = "social-profile-card";
+    card.href = profile.href;
+    card.target = "_blank";
+    card.rel = "noopener noreferrer";
+    card.setAttribute("aria-label", `Abrir perfil ${profile.handle} no ${profile.network}`);
+
+    const banner = document.createElement("img");
+    banner.className = "social-profile-card__banner";
+    banner.src = profile.banner;
+    banner.alt = `Banner do perfil ${profile.handle}`;
+    banner.loading = "lazy";
+    banner.decoding = "async";
+
+    const body = document.createElement("span");
+    body.className = "social-profile-card__body";
+    const avatar = document.createElement("img");
+    avatar.className = "social-profile-card__avatar";
+    avatar.src = profile.avatar;
+    avatar.alt = `Foto do perfil ${profile.handle}`;
+    avatar.loading = "lazy";
+    avatar.decoding = "async";
+    const name = document.createElement("span");
+    name.className = "social-profile-card__name";
+    name.textContent = profile.name;
+    const handle = document.createElement("span");
+    handle.className = "social-profile-card__handle";
+    handle.textContent = profile.handle;
+    const bio = document.createElement("span");
+    bio.className = "social-profile-card__bio";
+    bio.textContent = profile.bio;
+    const action = document.createElement("span");
+    action.className = "social-profile-card__action";
+    action.textContent = `Ver perfil no ${profile.network} ↗`;
+
+    body.append(avatar, name, handle, bio, action);
+    card.append(banner, body);
+    return card;
+  }
+
+  function createBlogProfilesSection() {
+    const section = document.createElement("section");
+    section.id = "blog";
+    section.className = "blog-profiles";
+    section.setAttribute("aria-label", "Perfis nas redes sociais");
+
+    const content = document.createElement("div");
+    content.className = "blog-profiles__content";
+    const heading = document.createElement("h2");
+    heading.className = "blog-profiles__heading";
+    heading.textContent = "Perfis";
+    const grid = document.createElement("div");
+    grid.className = "blog-profiles__grid";
+    socialProfiles.forEach((profile) => grid.append(createSocialProfileCard(profile)));
+    content.append(heading, grid);
+    section.append(content);
+    return section;
+  }
+
+  function createOrganizationDirectory() {
+    const section = document.createElement("section");
+    section.id = "campaign-organizations";
+    section.className = "organization-directory";
+    section.setAttribute("aria-label", "Organizações populares");
+
+    const content = document.createElement("div");
+    content.className = "organization-directory__content";
+    const tabs = document.createElement("div");
+    tabs.className = "organization-directory__tabs";
+    tabs.setAttribute("role", "tablist");
+    tabs.setAttribute("aria-label", "Categorias de organizações");
+    const tabButtons = [];
+    const groupPanels = [];
+
+    function activateGroup(activeIndex) {
+      tabButtons.forEach((tab, index) => {
+        const isActive = index === activeIndex;
+        tab.setAttribute("aria-selected", String(isActive));
+        tab.tabIndex = isActive ? 0 : -1;
+        groupPanels[index].hidden = !isActive;
+      });
+    }
+
+    organizationGroups.forEach((group, index) => {
+      const tab = document.createElement("button");
+      tab.className = "organization-directory__tab";
+      tab.type = "button";
+      tab.id = `organization-tab-${index}`;
+      tab.setAttribute("role", "tab");
+      tab.setAttribute("aria-controls", `organization-group-${index}`);
+      tab.setAttribute("aria-selected", String(index === 0));
+      tab.tabIndex = index === 0 ? 0 : -1;
+      tab.textContent = group.tabLabel;
+      tab.addEventListener("click", () => activateGroup(index));
+      tab.addEventListener("keydown", (event) => {
+        let nextIndex = null;
+        if (event.key === "ArrowRight") nextIndex = (index + 1) % organizationGroups.length;
+        if (event.key === "ArrowLeft") nextIndex = (index - 1 + organizationGroups.length) % organizationGroups.length;
+        if (event.key === "Home") nextIndex = 0;
+        if (event.key === "End") nextIndex = organizationGroups.length - 1;
+        if (nextIndex === null) return;
+        event.preventDefault();
+        tabButtons[nextIndex].focus();
+        activateGroup(nextIndex);
+      });
+      tabs.append(tab);
+      tabButtons.push(tab);
+    });
+    content.append(tabs);
+
+    organizationGroups.forEach((group, index) => {
+      const groupSection = document.createElement("div");
+      groupSection.className = "organization-directory__group";
+      groupSection.id = `organization-group-${index}`;
+      groupSection.setAttribute("role", "tabpanel");
+      groupSection.setAttribute("aria-labelledby", `organization-tab-${index}`);
+      groupSection.tabIndex = 0;
+      groupSection.hidden = index !== 0;
+      const heading = document.createElement("h2");
+      heading.className = "organization-directory__heading";
+      heading.textContent = group.title;
+      const grid = document.createElement("div");
+      grid.className = "organization-directory__grid";
+      group.organizations.forEach((organization) => grid.append(createOrganizationCard(organization)));
+      groupSection.append(heading, grid);
+      groupPanels.push(groupSection);
+      content.append(groupSection);
+    });
+    section.append(content);
+    return section;
+  }
+
+  function createDocsSection() {
+    const section = document.createElement("section");
+    section.id = "docs";
+    section.className = "blog-profiles docs-resources";
+    section.setAttribute("aria-label", "Materiais de referência");
+
+    const content = document.createElement("div");
+    content.className = "blog-profiles__content";
+    const heading = document.createElement("h2");
+    heading.className = "blog-profiles__heading";
+    heading.textContent = "Materiais de referência";
+    const grid = document.createElement("div");
+    grid.className = "blog-profiles__grid";
+
+    documentResources.forEach((resource) => {
+      const card = document.createElement("a");
+      card.className = "docs-resource-card";
+      card.href = resource.href;
+      card.target = "_blank";
+      card.rel = "noopener noreferrer";
+
+      const cover = document.createElement("img");
+      cover.className = `docs-resource-card__cover${resource.coverFit === "contain" ? " docs-resource-card__cover--contain" : ""}`;
+      cover.src = resource.cover;
+      cover.alt = resource.coverAlt;
+      cover.loading = "lazy";
+      cover.decoding = "async";
+
+      const body = document.createElement("span");
+      body.className = "docs-resource-card__body";
+
+      const category = document.createElement("span");
+      category.className = "docs-resource-card__category";
+      category.textContent = resource.category;
+      const title = document.createElement("strong");
+      title.className = "docs-resource-card__title";
+      title.textContent = resource.title;
+      const description = document.createElement("span");
+      description.className = "docs-resource-card__description";
+      description.textContent = resource.description;
+      const action = document.createElement("span");
+      action.className = "docs-resource-card__action";
+      action.textContent = `${resource.action} ↗`;
+
+      body.append(category, title, description, action);
+      card.append(cover, body);
+      grid.append(card);
+    });
+
+    content.append(heading, grid);
+    section.append(content);
+    return section;
+  }
+
+  function updateContentView(navigationMenu, blogProfiles, organizationDirectory, docsResources, shouldScroll = false) {
+    const currentView = ["#blog", "#docs"].includes(window.location.hash)
+      ? window.location.hash.slice(1)
+      : "home";
+    blogProfiles.hidden = currentView !== "blog";
+    organizationDirectory.hidden = currentView !== "home";
+    docsResources.hidden = currentView !== "docs";
+
+    navigationMenu.querySelectorAll(".campaign-navigation__link").forEach((link) => {
+      if (link.hash === `#${currentView}`) {
+        link.setAttribute("aria-current", "page");
+      } else {
+        link.removeAttribute("aria-current");
+      }
+    });
+
+    if (shouldScroll) {
+      const activeSection = currentView === "home"
+        ? document.getElementById("home")
+        : currentView === "blog"
+          ? blogProfiles
+          : docsResources;
+      activeSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }
+
   function applyCampaignLayout(language) {
     const root = document.querySelector("#root");
     if (!root) return;
@@ -701,13 +1733,77 @@
     if (!hero) return;
 
     ensureMarketStyles();
-    hero.id = "campaign-hero";
+    hero.id = "home";
     hero.classList.add("campaign-hero");
+    if (!document.getElementById("campaign-background-layer")) {
+      const backgroundLayer = document.createElement("div");
+      backgroundLayer.id = "campaign-background-layer";
+      backgroundLayer.setAttribute("aria-hidden", "true");
+
+      const backgroundVideo = document.createElement("video");
+      backgroundVideo.className = "campaign-background-video";
+      backgroundVideo.src = "/ssstwitter.com_1791476129925.mp4";
+      backgroundVideo.autoplay = true;
+      backgroundVideo.loop = true;
+      backgroundVideo.muted = true;
+      backgroundVideo.playsInline = true;
+      backgroundVideo.preload = "auto";
+      backgroundVideo.setAttribute("aria-hidden", "true");
+      backgroundVideo.tabIndex = -1;
+      backgroundLayer.append(backgroundVideo);
+      document.body.prepend(backgroundLayer);
+      backgroundVideo.play().catch(() => {});
+    }
     const appShell = Array.from(root.children).find(
       (child) => child.classList.contains("min-h-screen") && child.classList.contains("bg-background"),
     );
     if (appShell) {
       appShell.classList.add("campaign-app-shell");
+    }
+    let navigationMenu = document.getElementById("campaign-navigation");
+    if (!navigationMenu) {
+      navigationMenu = createNavigationMenu();
+      navigationMenu.id = "campaign-navigation";
+      if (appShell) {
+        appShell.insertAdjacentElement("afterend", navigationMenu);
+      } else {
+        root.append(navigationMenu);
+      }
+    }
+    let blogProfiles = document.getElementById("blog");
+    if (!blogProfiles) {
+      blogProfiles = createBlogProfilesSection();
+      navigationMenu.insertAdjacentElement("afterend", blogProfiles);
+    }
+    let organizationDirectory = document.getElementById("campaign-organizations");
+    if (!organizationDirectory) {
+      organizationDirectory = createOrganizationDirectory();
+      if (blogProfiles) {
+        blogProfiles.insertAdjacentElement("afterend", organizationDirectory);
+      } else if (navigationMenu) {
+        navigationMenu.insertAdjacentElement("afterend", organizationDirectory);
+      } else if (appShell) {
+        appShell.insertAdjacentElement("afterend", organizationDirectory);
+      } else {
+        root.append(organizationDirectory);
+      }
+    }
+    let docsResources = document.getElementById("docs");
+    if (!docsResources) {
+      docsResources = createDocsSection();
+      organizationDirectory.insertAdjacentElement("afterend", docsResources);
+    }
+    updateContentView(navigationMenu, blogProfiles, organizationDirectory, docsResources);
+    if (navigationMenu.dataset.viewNavigation !== "true") {
+      navigationMenu.dataset.viewNavigation = "true";
+      window.addEventListener("hashchange", () => {
+        updateContentView(navigationMenu, blogProfiles, organizationDirectory, docsResources, true);
+      });
+      if (window.location.hash) {
+        requestAnimationFrame(() => {
+          updateContentView(navigationMenu, blogProfiles, organizationDirectory, docsResources, true);
+        });
+      }
     }
     const scrollIndicator = hero.querySelector(".scroll-indicator");
     if (scrollIndicator) {
@@ -730,7 +1826,7 @@
     configureHeroAction(hero, "Criar seu perfil", "support", supportLabel);
 
     root.querySelectorAll("section").forEach((section) => {
-      if (section !== hero) {
+      if (section !== hero && section !== blogProfiles && section !== organizationDirectory && section !== docsResources) {
         section.dataset.campaignHidden = "true";
         section.setAttribute("aria-hidden", "true");
       }
@@ -752,18 +1848,13 @@
     const brandLink = document.querySelector('nav a[href="/"]');
 
     if (brandLink && brandLink.dataset.flavioBrand !== "true") {
-      const logo = document.createElement("img");
-      logo.src = "/assets/flavio-bolsonaro-logo.png";
-      logo.alt = "Logotipo do Partido Liberal";
-      logo.className = "h-10 w-10 rounded-xl object-cover";
-
       const name = document.createElement("span");
-      name.textContent = "Flávio Bolsonaro";
+      name.textContent = "PORTAL COMUNISTA";
       name.className = "text-sm font-bold text-white";
 
-      brandLink.replaceChildren(logo, name);
+      brandLink.replaceChildren(name);
       brandLink.className = "flex items-center gap-3 rounded-xl";
-      brandLink.setAttribute("aria-label", "Flávio Bolsonaro — início");
+      brandLink.setAttribute("aria-label", "Portal Comunista — início");
       brandLink.dataset.flavioBrand = "true";
     }
 
@@ -775,9 +1866,11 @@
     const headings = document.querySelectorAll(".display-heading");
     if (headings.length >= 3) {
       copy.headings.forEach((text, index) => {
-        if (headings[index].textContent !== text) {
-          headings[index].textContent = text;
+        const heading = headings[index];
+        if (heading.textContent !== text) {
+          heading.textContent = text;
         }
+        heading.hidden = !text;
       });
     }
 
