@@ -659,6 +659,17 @@
           min-height: 46px;
           font-size: 17px;
         }
+        .organization-directory__grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 12px;
+        }
+        .organization-card {
+          width: 100%;
+          gap: 8px;
+        }
+        .organization-card__title {
+          font-size: 13px;
+        }
       }
       .organization-directory__group {
         display: grid;
