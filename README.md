@@ -10,6 +10,7 @@ Site estático do projeto cwmunismo.
 - 2026-10-08: Separated Home, Blog, and Docs views; added the Marxist reference covers and hardened unsupported routes and the support endpoint.
 - 2026-10-09: Reduced hero typography, supporting copy, button, and spacing on mobile while preserving the desktop layout.
 - 2026-10-09: Kept organization logo cards square and side by side in a two-column mobile grid.
+- 2026-10-09: Fixed mobile grid cascade so the two-column layout applies at normal browser zoom.
 
 - `index.html` serves the CWMUNISTA portal with Home, Blog, and Docs views.
 - `assets/` contains compiled bundles, local profile images, organization logos, reference covers, the favicon, the static `cwmunismo.pw.jpg` social preview, and the animated GIF.
