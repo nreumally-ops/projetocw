@@ -1177,6 +1177,28 @@
       @media (max-width: 780px) {
         #root section.campaign-hero {
           min-height: 100svh !important;
+          padding-top: 82px !important;
+          padding-bottom: 32px !important;
+        }
+        #root section.campaign-hero .display-heading {
+          font-size: 48px !important;
+          line-height: 0.98 !important;
+        }
+        #root section.campaign-hero p.label-caps.mb-8 {
+          padding: 8px 11px;
+          font-size: 14px !important;
+        }
+        #root section.campaign-hero p.max-w-md.leading-relaxed {
+          width: min(100%, 560px);
+          padding: 12px 15px;
+          font-size: 16px !important;
+          line-height: 1.4 !important;
+        }
+        #root section.campaign-hero button[data-campaign-action="support"] {
+          min-width: min(168px, calc(100vw - 48px));
+          min-height: 48px;
+          padding-inline: 19px !important;
+          font-size: 13px !important;
         }
         .market-header {
           align-items: flex-start;
@@ -1212,7 +1234,26 @@
       @media (max-width: 480px) {
         #root section.campaign-hero {
           min-height: 100svh !important;
-          padding-inline: 18px !important;
+          padding: 68px 18px 26px !important;
+        }
+        #root section.campaign-hero .display-heading {
+          font-size: 36px !important;
+          line-height: 1 !important;
+        }
+        #root section.campaign-hero p.label-caps.mb-8 {
+          padding: 7px 9px;
+          font-size: 12px !important;
+        }
+        #root section.campaign-hero p.max-w-md.leading-relaxed {
+          padding: 10px 12px;
+          font-size: 14px !important;
+          line-height: 1.4 !important;
+        }
+        #root section.campaign-hero button[data-campaign-action="support"] {
+          min-width: min(148px, calc(100vw - 44px));
+          min-height: 44px;
+          padding-inline: 16px !important;
+          font-size: 12px !important;
         }
         section.campaign-market {
           padding: 34px 13px 50px;
