@@ -11,8 +11,9 @@ Site estático do projeto cwmunismo.
 - 2026-10-09: Reduced hero typography, supporting copy, button, and spacing on mobile while preserving the desktop layout.
 - 2026-10-09: Kept organization logo cards square and side by side in a two-column mobile grid.
 - 2026-10-09: Fixed mobile grid cascade so the two-column layout applies at normal browser zoom.
+- 2026-10-09: Updated the homepage header brand to MDUP - movimento de uniao popular.
 
-- `index.html` serves the CWMUNISTA portal with Home, Blog, and Docs views.
+- `index.html` serves the MDUP portal with Home, Blog, and Docs views.
 - `assets/` contains compiled bundles, local profile images, organization logos, reference covers, the favicon, the static `cwmunismo.pw.jpg` social preview, and the animated GIF.
 - The homepage uses a muted background video; link previews prioritize the static image for compatibility, with the optimized 480 x 384 animated GIF as a secondary Open Graph image.
 - APOIE currently links to `https://x.com/cwmunista`.

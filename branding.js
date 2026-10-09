@@ -1901,12 +1901,12 @@
 
     if (brandLink && brandLink.dataset.flavioBrand !== "true") {
       const name = document.createElement("span");
-      name.textContent = "PORTAL COMUNISTA";
+      name.textContent = "MDUP - movimento de uniao popular";
       name.className = "text-sm font-bold text-white";
 
       brandLink.replaceChildren(name);
       brandLink.className = "flex items-center gap-3 rounded-xl";
-      brandLink.setAttribute("aria-label", "Portal Comunista — início");
+      brandLink.setAttribute("aria-label", "MDUP - movimento de uniao popular — início");
       brandLink.dataset.flavioBrand = "true";
     }
 
