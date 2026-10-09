@@ -801,6 +801,21 @@
         letter-spacing: 0.14em;
         transition: transform 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
       }
+      #root nav button.nav-link:has(> img[alt="USA"]) > img[alt="USA"] {
+        visibility: hidden;
+      }
+      #root nav button.nav-link:has(> img[alt="USA"])::after {
+        position: absolute;
+        top: 50%;
+        left: 12px;
+        color: #fff;
+        content: "🌐";
+        font-family: "Segoe UI Emoji", "Apple Color Emoji", sans-serif;
+        font-size: 17px;
+        letter-spacing: 0;
+        line-height: 1;
+        transform: translateY(-50%);
+      }
       #root nav button.nav-link::before {
         position: absolute;
         top: 4px;
