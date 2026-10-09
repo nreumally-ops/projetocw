@@ -64,6 +64,17 @@
       banner: "/assets/bolchebased-x-banner.jpg",
       avatar: "/assets/bolchebased-x-avatar.jpg",
     },
+    {
+      network: "X",
+      name: "Organize-se ☭",
+      handle: "@organizeseja",
+      bio: "Perfil público no X.",
+      href: "https://x.com/organizeseja",
+      banner: "/assets/organizeseja-x-avatar.jpg",
+      bannerAlt: "Símbolo Revolução do perfil Organize-se",
+      bannerFit: "contain",
+      avatar: "/assets/organizeseja-x-avatar.jpg",
+    },
   ];
   const organizationGroups = [
     {
@@ -484,6 +495,10 @@
         aspect-ratio: 3 / 1;
         object-fit: cover;
         background: #111;
+      }
+      .social-profile-card__banner--contain {
+        object-fit: contain;
+        background: #a90d14;
       }
       .social-profile-card__body {
         display: flex;
@@ -1573,9 +1588,9 @@
     card.setAttribute("aria-label", `Abrir perfil ${profile.handle} no ${profile.network}`);
 
     const banner = document.createElement("img");
-    banner.className = "social-profile-card__banner";
+    banner.className = `social-profile-card__banner${profile.bannerFit === "contain" ? " social-profile-card__banner--contain" : ""}`;
     banner.src = profile.banner;
-    banner.alt = `Banner do perfil ${profile.handle}`;
+    banner.alt = profile.bannerAlt || `Banner do perfil ${profile.handle}`;
     banner.loading = "lazy";
     banner.decoding = "async";
 

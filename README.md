@@ -12,6 +12,7 @@ Site estático do projeto cwmunismo.
 - 2026-10-09: Kept organization logo cards square and side by side in a two-column mobile grid.
 - 2026-10-09: Fixed mobile grid cascade so the two-column layout applies at normal browser zoom.
 - 2026-10-09: Updated the homepage header brand to MDUP - movimento de uniao popular.
+- 2026-10-09: Added the @organizeseja X profile and its local profile image to Blog.
 
 - `index.html` serves the MDUP portal with Home, Blog, and Docs views.
 - `assets/` contains compiled bundles, local profile images, organization logos, reference covers, the favicon, the static `cwmunismo.pw.jpg` social preview, and the animated GIF.
