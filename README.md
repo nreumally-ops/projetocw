@@ -14,6 +14,7 @@ Site estático do projeto cwmunismo.
 - 2026-10-09: Updated the homepage header brand to MDUP - movimento de uniao popular.
 - 2026-10-09: Added the @organizeseja X profile and its local profile image to Blog.
 - 2026-10-09: Replaced the US language flag with the globe emoji while keeping the Brazil flag unchanged.
+- 2026-10-21: Removed the organization directory and its category tabs from Home.
 
 - `index.html` serves the MDUP portal with Home, Blog, and Docs views.
 - `assets/` contains compiled bundles, local profile images, organization logos, reference covers, the favicon, the static `cwmunismo.pw.jpg` social preview, and the animated GIF.

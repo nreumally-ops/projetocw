@@ -76,140 +76,6 @@
       avatar: "/assets/organizeseja-x-avatar.jpg",
     },
   ];
-  const organizationGroups = [
-    {
-      title: "Partidos",
-      tabLabel: "Partidos",
-      organizations: [
-        {
-          title: "UP - Unidade Popular",
-          image: "/assets/logos/up.webp",
-          imageAlt: "Logo da Unidade Popular",
-          href: "https://unidadepopular.org.br/",
-        },
-        {
-          title: "PCB - Partido Comunista Brasileiro",
-          image: "/assets/logos/pcb.webp",
-          imageAlt: "Logo do Partido Comunista Brasileiro",
-          href: "https://pcb.org.br/portal2/",
-        },
-        {
-          title: "PCB-RR - PCB Reconstrução Revolucionária",
-          image: "/assets/logos/pcbrr.jpg",
-          imageAlt: "Logo do PCB Reconstrução Revolucionária",
-          href: "https://www.instagram.com/pcbrr_rp/",
-        },
-        {
-          title: "PSTU - Partido Socialista dos Trabalhadores Unificado",
-          image: "/assets/logos/pstu-redimensionado.jpg",
-          imageAlt: "Logo do PSTU",
-          href: "https://www.pstu.org.br/",
-        },
-        {
-          title: "PCO - Partido da Causa Operária",
-          image: "/assets/logos/pco-redimensionado.png",
-          imageAlt: "Logo do Partido da Causa Operária",
-          href: "https://pco.org.br/",
-        },
-        {
-          title: "PSOL - Partido Socialismo e Liberdade",
-          image: "/assets/logos/psol.svg",
-          imageAlt: "Logo do PSOL",
-          href: "https://psol50.org.br/",
-        },
-        {
-          title: "PCdoB - Partido Comunista do Brasil",
-          image: "/assets/logos/pcdob.webp",
-          imageAlt: "Logo do PCdoB",
-          href: "https://pcdob.org.br/",
-        },
-        {
-          title: "PT - Partido dos Trabalhadores",
-          image: "/assets/logos/pt.png",
-          imageAlt: "Logo do PT",
-          href: "https://pt.org.br/",
-        },
-      ],
-    },
-    {
-      title: "Movimentos Sociais de Massa",
-      tabLabel: "Movimentos",
-      organizations: [
-        {
-          title: "MST - Movimento dos Trabalhadores Rurais Sem Terra",
-          image: "/assets/logos/mst.png",
-          imageAlt: "Logo do MST",
-          href: "https://mst.org.br/",
-        },
-        {
-          title: "MTST - Movimento dos Trabalhadores Sem-Teto",
-          image: "/assets/logos/mtst.png",
-          imageAlt: "Logo do MTST",
-          href: "https://mtst.org/",
-        },
-        {
-          title: "MLB - Movimento de Luta nos Bairros, Vilas e Favelas",
-          image: "/assets/logos/mlb.png",
-          imageAlt: "Logo do MLB",
-          href: "https://www.instagram.com/mlbnacional/",
-        },
-        {
-          title: "MAM - Movimento pela Soberania Popular na Mineração",
-          image: "/assets/logos/mam.jpg",
-          imageAlt: "Logo do MAM",
-          href: "https://www.mamnacional.org.br/",
-        },
-        {
-          title: "MPA - Movimento dos Pequenos Agricultores",
-          image: "/assets/logos/mpa.jpg",
-          imageAlt: "Logo do MPA",
-          href: "https://mpabrasil.org.br/",
-        },
-        {
-          title: "MAB - Movimento dos Atingidos por Barragens",
-          image: "/assets/logos/mab.jpg",
-          imageAlt: "Logo do MAB",
-          href: "https://mab.org.br/",
-        },
-      ],
-    },
-    {
-      title: "Coletivos de Agitação, Juventude e Frentes Populares",
-      tabLabel: "Coletivos",
-      organizations: [
-        {
-          title: "UJC - União da Juventude Comunista",
-          image: "/assets/logos/ujc.jpg",
-          imageAlt: "Logo da UJC",
-          href: "https://ujc.org.br/",
-        },
-        {
-          title: "UJR - União da Juventude Rebelião",
-          image: "/assets/logos/ujr.png",
-          imageAlt: "Logo da UJR",
-          href: "https://www.rebeliao.org/",
-        },
-        {
-          title: "Coletivo Olga Benario - Movimento de Mulheres",
-          image: "/assets/logos/olga.png",
-          imageAlt: "Logo do Coletivo Olga Benario",
-          href: "https://www.movimentoolga.com/",
-        },
-        {
-          title: "Coletivo Minervino de Oliveira - Coletivo Negro Combativo",
-          image: "/assets/logos/minervino.webp",
-          imageAlt: "Logo do Coletivo Minervino de Oliveira",
-          href: "https://coletivominervinocom.wordpress.com/",
-        },
-        {
-          title: "Soberana - Coletivo de Mídia e Agitprop Popular",
-          image: "/assets/logos/soberana.png",
-          imageAlt: "Logo da Soberana",
-          href: "https://soberana.tv/",
-        },
-      ],
-    },
-  ];
 
   function backgroundVideos() {
     return Array.from(document.querySelectorAll("video.campaign-background-video")).filter((video) => {
@@ -425,22 +291,9 @@
           font-size: 26px;
         }
       }
-      .organization-directory {
-        box-sizing: border-box;
-        padding: clamp(52px, 8vw, 96px) 20px;
-        border-top: 1px solid rgba(255, 255, 255, 0.14);
-        background: rgba(8, 8, 8, 0.48);
-      }
-      .organization-directory[hidden],
       #root section.blog-profiles[hidden],
       #root section.docs-resources[hidden] {
         display: none !important;
-      }
-      .organization-directory__content {
-        display: grid;
-        width: min(100%, 1240px);
-        margin: 0 auto;
-        gap: clamp(48px, 7vw, 82px);
       }
       #root section.blog-profiles {
         box-sizing: border-box;
@@ -613,176 +466,7 @@
         font-size: 13px;
         font-weight: 800;
       }
-      .organization-directory__tabs {
-        display: flex;
-        align-items: center;
-        gap: clamp(20px, 3.5vw, 44px);
-        margin: 0 auto clamp(38px, 6vw, 64px);
-        overflow-x: auto;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.18);
-        scrollbar-width: none;
-      }
-      .organization-directory__tabs::-webkit-scrollbar {
-        display: none;
-      }
-      .organization-directory__tab {
-        position: relative;
-        flex: 0 0 auto;
-        min-height: 54px;
-        padding: 12px 3px;
-        border: 0;
-        background: transparent;
-        color: rgba(255, 255, 255, 0.68);
-        cursor: pointer;
-        font: inherit;
-        font-size: 20px;
-        font-weight: 700;
-        white-space: nowrap;
-        transition: color 160ms ease;
-      }
-      .organization-directory__tab::after {
-        position: absolute;
-        right: 0;
-        bottom: -1px;
-        left: 0;
-        height: 2px;
-        background: #c3423f;
-        content: "";
-        transform: scaleX(0);
-        transform-origin: left;
-        transition: transform 160ms ease;
-      }
-      .organization-directory__tab[aria-selected="true"],
-      .organization-directory__tab:hover,
-      .organization-directory__tab:focus-visible {
-        color: #fff;
-      }
-      .organization-directory__tab[aria-selected="true"]::after,
-      .organization-directory__tab:hover::after,
-      .organization-directory__tab:focus-visible::after {
-        transform: scaleX(1);
-      }
-      .organization-directory__tab:focus-visible {
-        outline: 2px solid #fff8ed;
-        outline-offset: 5px;
-      }
-      @media (max-width: 480px) {
-        .organization-directory__tabs {
-          gap: 20px;
-        }
-        .organization-directory__tab {
-          min-height: 46px;
-          font-size: 17px;
-        }
-        .organization-directory .organization-directory__grid {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-          gap: 12px;
-        }
-        .organization-directory .organization-card {
-          width: 100%;
-          gap: 8px;
-        }
-        .organization-directory .organization-card__title {
-          font-size: 13px;
-        }
-      }
-      .organization-directory__group {
-        display: grid;
-        gap: 22px;
-      }
-      .organization-directory__group[hidden] {
-        display: none !important;
-      }
-      .organization-directory__heading {
-        margin: 0;
-        color: #fff;
-        font-size: clamp(20px, 2vw, 28px);
-        font-weight: 900;
-        line-height: 1.2;
-      }
-      .organization-directory__heading::after {
-        display: block;
-        width: 54px;
-        height: 3px;
-        margin-top: 12px;
-        background: #c3423f;
-        content: "";
-      }
-      .organization-directory__grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
-        align-items: start;
-        justify-items: start;
-        gap: 28px;
-      }
-      .organization-card {
-        box-sizing: border-box;
-        display: grid;
-        width: min(100%, 380px);
-        align-content: start;
-        gap: 14px;
-        color: #fff;
-        text-decoration: none;
-        transition: transform 160ms ease;
-      }
-      .organization-card:hover {
-        transform: translateY(-3px);
-      }
-      .organization-card:focus-visible {
-        outline: 2px solid #fff8ed;
-        outline-offset: 5px;
-      }
-      .organization-card__image {
-        display: grid;
-        width: 100%;
-        aspect-ratio: 1;
-        overflow: hidden;
-        place-items: center;
-        background: #000;
-      }
-      .organization-card__image img {
-        display: block;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        background: #000;
-      }
-      .organization-card--wide .organization-card__image {
-        aspect-ratio: 2 / 1;
-      }
-      .organization-card--wide .organization-card__image img {
-        object-fit: contain;
-      }
-      .organization-card__mark {
-        display: grid;
-        width: 100%;
-        height: 100%;
-        place-items: center;
-        overflow: hidden;
-        background: #101010;
-        color: #fff;
-        font-size: clamp(64px, 8vw, 104px);
-        font-weight: 900;
-        line-height: 1;
-        text-align: center;
-        text-shadow: 6px 6px 0 rgba(112, 24, 24, 0.82);
-      }
-      .organization-card__mark[data-long="true"] {
-        padding: 12px;
-        box-sizing: border-box;
-        font-size: clamp(36px, 4vw, 52px);
-      }
-      .organization-card__title {
-        margin: 0;
-        color: #fff;
-        font-size: 20px;
-        font-weight: 800;
-        line-height: 1.25;
-      }
       @media (prefers-reduced-motion: reduce) {
-        .organization-card {
-          transition: none;
-        }
         .social-profile-card {
           transition: none;
         }
@@ -1561,39 +1245,6 @@
     return nav;
   }
 
-  function createOrganizationCard(organization) {
-    const card = document.createElement("a");
-    card.className = "organization-card";
-    if (organization.wideLogo) card.classList.add("organization-card--wide");
-    card.href = organization.href;
-    card.target = "_blank";
-    card.rel = "noopener noreferrer";
-    card.setAttribute("aria-label", `Acessar página de ${organization.title}`);
-
-    const imageFrame = document.createElement("div");
-    imageFrame.className = "organization-card__image";
-    if (organization.image) {
-      const image = document.createElement("img");
-      image.src = organization.image;
-      image.alt = organization.imageAlt || `Logo ${organization.title}`;
-      image.loading = "lazy";
-      image.decoding = "async";
-      imageFrame.append(image);
-    } else {
-      const mark = document.createElement("span");
-      mark.className = "organization-card__mark";
-      if (organization.mark.length > 5) mark.dataset.long = "true";
-      mark.setAttribute("aria-hidden", "true");
-      mark.textContent = organization.mark;
-      imageFrame.append(mark);
-    }
-    const title = document.createElement("span");
-    title.className = "organization-card__title";
-    title.textContent = organization.title;
-    card.append(imageFrame, title);
-    return card;
-  }
-
   function createSocialProfileCard(profile) {
     const card = document.createElement("a");
     card.className = "social-profile-card";
@@ -1654,79 +1305,6 @@
     return section;
   }
 
-  function createOrganizationDirectory() {
-    const section = document.createElement("section");
-    section.id = "campaign-organizations";
-    section.className = "organization-directory";
-    section.setAttribute("aria-label", "Organizações populares");
-
-    const content = document.createElement("div");
-    content.className = "organization-directory__content";
-    const tabs = document.createElement("div");
-    tabs.className = "organization-directory__tabs";
-    tabs.setAttribute("role", "tablist");
-    tabs.setAttribute("aria-label", "Categorias de organizações");
-    const tabButtons = [];
-    const groupPanels = [];
-
-    function activateGroup(activeIndex) {
-      tabButtons.forEach((tab, index) => {
-        const isActive = index === activeIndex;
-        tab.setAttribute("aria-selected", String(isActive));
-        tab.tabIndex = isActive ? 0 : -1;
-        groupPanels[index].hidden = !isActive;
-      });
-    }
-
-    organizationGroups.forEach((group, index) => {
-      const tab = document.createElement("button");
-      tab.className = "organization-directory__tab";
-      tab.type = "button";
-      tab.id = `organization-tab-${index}`;
-      tab.setAttribute("role", "tab");
-      tab.setAttribute("aria-controls", `organization-group-${index}`);
-      tab.setAttribute("aria-selected", String(index === 0));
-      tab.tabIndex = index === 0 ? 0 : -1;
-      tab.textContent = group.tabLabel;
-      tab.addEventListener("click", () => activateGroup(index));
-      tab.addEventListener("keydown", (event) => {
-        let nextIndex = null;
-        if (event.key === "ArrowRight") nextIndex = (index + 1) % organizationGroups.length;
-        if (event.key === "ArrowLeft") nextIndex = (index - 1 + organizationGroups.length) % organizationGroups.length;
-        if (event.key === "Home") nextIndex = 0;
-        if (event.key === "End") nextIndex = organizationGroups.length - 1;
-        if (nextIndex === null) return;
-        event.preventDefault();
-        tabButtons[nextIndex].focus();
-        activateGroup(nextIndex);
-      });
-      tabs.append(tab);
-      tabButtons.push(tab);
-    });
-    content.append(tabs);
-
-    organizationGroups.forEach((group, index) => {
-      const groupSection = document.createElement("div");
-      groupSection.className = "organization-directory__group";
-      groupSection.id = `organization-group-${index}`;
-      groupSection.setAttribute("role", "tabpanel");
-      groupSection.setAttribute("aria-labelledby", `organization-tab-${index}`);
-      groupSection.tabIndex = 0;
-      groupSection.hidden = index !== 0;
-      const heading = document.createElement("h2");
-      heading.className = "organization-directory__heading";
-      heading.textContent = group.title;
-      const grid = document.createElement("div");
-      grid.className = "organization-directory__grid";
-      group.organizations.forEach((organization) => grid.append(createOrganizationCard(organization)));
-      groupSection.append(heading, grid);
-      groupPanels.push(groupSection);
-      content.append(groupSection);
-    });
-    section.append(content);
-    return section;
-  }
-
   function createDocsSection() {
     const section = document.createElement("section");
     section.id = "docs";
@@ -1781,12 +1359,11 @@
     return section;
   }
 
-  function updateContentView(navigationMenu, blogProfiles, organizationDirectory, docsResources, shouldScroll = false) {
+  function updateContentView(navigationMenu, blogProfiles, docsResources, shouldScroll = false) {
     const currentView = ["#blog", "#docs"].includes(window.location.hash)
       ? window.location.hash.slice(1)
       : "home";
     blogProfiles.hidden = currentView !== "blog";
-    organizationDirectory.hidden = currentView !== "home";
     docsResources.hidden = currentView !== "docs";
 
     navigationMenu.querySelectorAll(".campaign-navigation__link").forEach((link) => {
@@ -1857,33 +1434,20 @@
       blogProfiles = createBlogProfilesSection();
       navigationMenu.insertAdjacentElement("afterend", blogProfiles);
     }
-    let organizationDirectory = document.getElementById("campaign-organizations");
-    if (!organizationDirectory) {
-      organizationDirectory = createOrganizationDirectory();
-      if (blogProfiles) {
-        blogProfiles.insertAdjacentElement("afterend", organizationDirectory);
-      } else if (navigationMenu) {
-        navigationMenu.insertAdjacentElement("afterend", organizationDirectory);
-      } else if (appShell) {
-        appShell.insertAdjacentElement("afterend", organizationDirectory);
-      } else {
-        root.append(organizationDirectory);
-      }
-    }
     let docsResources = document.getElementById("docs");
     if (!docsResources) {
       docsResources = createDocsSection();
-      organizationDirectory.insertAdjacentElement("afterend", docsResources);
+      blogProfiles.insertAdjacentElement("afterend", docsResources);
     }
-    updateContentView(navigationMenu, blogProfiles, organizationDirectory, docsResources);
+    updateContentView(navigationMenu, blogProfiles, docsResources);
     if (navigationMenu.dataset.viewNavigation !== "true") {
       navigationMenu.dataset.viewNavigation = "true";
       window.addEventListener("hashchange", () => {
-        updateContentView(navigationMenu, blogProfiles, organizationDirectory, docsResources, true);
+        updateContentView(navigationMenu, blogProfiles, docsResources, true);
       });
       if (window.location.hash) {
         requestAnimationFrame(() => {
-          updateContentView(navigationMenu, blogProfiles, organizationDirectory, docsResources, true);
+          updateContentView(navigationMenu, blogProfiles, docsResources, true);
         });
       }
     }
@@ -1908,7 +1472,7 @@
     configureHeroAction(hero, "Criar seu perfil", "support", supportLabel);
 
     root.querySelectorAll("section").forEach((section) => {
-      if (section !== hero && section !== blogProfiles && section !== organizationDirectory && section !== docsResources) {
+      if (section !== hero && section !== blogProfiles && section !== docsResources) {
         section.dataset.campaignHidden = "true";
         section.setAttribute("aria-hidden", "true");
       }
