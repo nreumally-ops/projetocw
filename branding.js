@@ -56,7 +56,7 @@
       network: "X",
       name: "chrondevity",
       handle: "@Esmr4ll",
-      bio: "Storm's End",
+      bio: "",
       href: "https://x.com/Esmr4ll",
       banner: "/assets/esmr4ll-banner.jpg",
       avatar: "/assets/esmr4ll-avatar.jpg",
@@ -65,7 +65,7 @@
       network: "X",
       name: "carioca marxista ☭",
       handle: "@camaradabeok",
-      bio: "Marxista do Rio de Janeiro.",
+      bio: "“A miséria do nosso povo é a consequência inevitável da espoliação do país pelo imperialismo estrangeiro, em aliança com os grandes latifundiários.” – Prestes.",
       href: "https://x.com/camaradabeok",
       banner: "/assets/camaradabeok-banner.jpg",
       avatar: "/assets/camaradabeok-avatar.jpg",
@@ -74,7 +74,7 @@
       network: "X",
       name: "gondorianⒶ",
       handle: "@mariluiuiu",
-      bio: "Eu provavelmente discordo de você.",
+      bio: "eu provavelmente discordo de você",
       href: "https://x.com/mariluiuiu",
       banner: "/assets/mariluiuiu-banner.jpg",
       avatar: "/assets/mariluiuiu-avatar.jpg",
@@ -83,7 +83,7 @@
       network: "X",
       name: "Ame ☭",
       handle: "@Ateusacana876",
-      bio: "Catarinense, atualmente na Rússia.",
+      bio: "💍 - 𝐈\nFoda-se sua opinião de merda\ncatarinense (infelizmente)",
       href: "https://x.com/Ateusacana876",
       banner: "/assets/ateusacana876-banner.jpg",
       avatar: "/assets/ateusacana876-avatar.jpg",
@@ -92,7 +92,7 @@
       network: "X",
       name: "Representante Tinoco",
       handle: "@tinoc0_0",
-      bio: "Getulista, brizolista, socialista e flamenguista.",
+      bio: "getulista,brizolista,socialista moreno,flamenguista,carioca de subúrbio",
       href: "https://x.com/tinoc0_0",
       banner: "/assets/tinoc0_0-banner.jpg",
       avatar: "/assets/tinoc0_0-avatar.jpg",
@@ -101,7 +101,7 @@
       network: "X",
       name: "Frente Anti Fascista Brasileira",
       handle: "@frenteantifabr",
-      bio: "Justiça social e direitos do trabalhador.",
+      bio: "✊ FAB | Frente Antifascista Brasileira\nPela luta, justiça social e direitos do trabalhador.\nOrganização popular contra o autoritarismo e toda forma de opressão.",
       href: "https://x.com/frenteantifabr",
       banner: "/assets/frenteantifabr-banner.jpg",
       avatar: "/assets/frenteantifabr-avatar.png",
@@ -110,7 +110,7 @@
       network: "X",
       name: "V. ☭",
       handle: "@wokebaphomet",
-      bio: "Perfil público no X.",
+      bio: "misândrica comunista; 🇵🇸 ☭",
       href: "https://x.com/wokebaphomet",
       banner: "/assets/wokebaphomet-banner.jpg",
       avatar: "/assets/wokebaphomet-avatar.jpg",
@@ -119,7 +119,7 @@
       network: "X",
       name: "𝙂𝘼𝘽𝙍𝙄𝙀𝙇 𝘽𝙊𝙏𝙀𝙇𝙃𝙊",
       handle: "@VernichtenKlass",
-      bio: "Karl-Marx-Stadt.",
+      bio: "“A desvalorização do mundo humano aumenta na razão direta do aumento de valor do mundo dos objetos.” - Karl Marx.",
       href: "https://x.com/VernichtenKlass",
       banner: "/assets/vernichtenklass-banner.jpg",
       avatar: "/assets/vernichtenklass-avatar.jpg",
@@ -465,6 +465,7 @@
         color: rgba(255, 255, 255, 0.9);
         font-size: 16px;
         line-height: 1.5;
+        white-space: pre-line;
       }
       .social-profile-card__action {
         display: inline-block;
@@ -1291,14 +1292,18 @@
     const handle = document.createElement("span");
     handle.className = "social-profile-card__handle";
     handle.textContent = profile.handle;
-    const bio = document.createElement("span");
-    bio.className = "social-profile-card__bio";
-    bio.textContent = profile.bio;
     const action = document.createElement("span");
     action.className = "social-profile-card__action";
     action.textContent = `Ver perfil no ${profile.network} ↗`;
 
-    body.append(avatar, name, handle, bio, action);
+    body.append(avatar, name, handle);
+    if (profile.bio) {
+      const bio = document.createElement("span");
+      bio.className = "social-profile-card__bio";
+      bio.textContent = profile.bio;
+      body.append(bio);
+    }
+    body.append(action);
     card.append(banner, body);
     return card;
   }

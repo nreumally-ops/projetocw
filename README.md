@@ -22,6 +22,7 @@ Site estático do projeto cwmunismo.
 - 2026-10-22: Replaced the hero headline with a video-filled Harpia logo mask.
 - 2026-10-22: Cropped the logo-video frame's lower edge to remove a visible line.
 - 2026-10-22: Added nine X profiles to the Blog section.
+- 2026-10-22: Replaced summarized profile descriptions with exact X bios.
 
 - `index.html` serves the Pátria Vermelha portal with Home, Blog, and Docs views.
 - `assets/` contains compiled bundles, local profile images, organization logos, the `logo2harpia-mask.png` video mask, reference covers, the favicon, the static `cwmunismo.pw.jpg` social preview, and the animated GIF.
