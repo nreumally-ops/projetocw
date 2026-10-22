@@ -64,17 +64,6 @@
       banner: "/assets/bolchebased-x-banner.jpg",
       avatar: "/assets/bolchebased-x-avatar.jpg",
     },
-    {
-      network: "X",
-      name: "Organize-se ☭",
-      handle: "@organizeseja",
-      bio: "Perfil público no X.",
-      href: "https://x.com/organizeseja",
-      banner: "/assets/organizeseja-x-avatar.jpg",
-      bannerAlt: "Símbolo Revolução do perfil Organize-se",
-      bannerFit: "contain",
-      avatar: "/assets/organizeseja-x-avatar.jpg",
-    },
   ];
 
   function backgroundVideos() {
