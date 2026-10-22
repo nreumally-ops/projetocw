@@ -1484,12 +1484,12 @@
 
     if (brandLink && brandLink.dataset.flavioBrand !== "true") {
       const name = document.createElement("span");
-      name.textContent = "MDUP - movimento de uniao popular";
+      name.textContent = "Pátria Vermelha";
       name.className = "text-sm font-bold text-white";
 
       brandLink.replaceChildren(name);
       brandLink.className = "flex items-center gap-3 rounded-xl";
-      brandLink.setAttribute("aria-label", "MDUP - movimento de uniao popular — início");
+      brandLink.setAttribute("aria-label", "Pátria Vermelha — início");
       brandLink.dataset.flavioBrand = "true";
     }
 
