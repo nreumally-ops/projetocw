@@ -145,6 +145,7 @@
         align-self: center;
         margin: 0 auto 18px;
         overflow: hidden;
+        clip-path: inset(0 0 2px);
       }
       #root section.campaign-hero .campaign-logo-video__media {
         display: block;
