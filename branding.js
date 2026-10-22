@@ -131,6 +131,36 @@
         paint-order: stroke fill;
         text-shadow: 5px 6px 0 rgba(0, 0, 0, 0.86), 9px 10px 0 rgba(112, 24, 24, 0.78);
       }
+      #root section.campaign-hero .campaign-logo-heading {
+        position: absolute !important;
+        width: 1px !important;
+        height: 1px !important;
+        overflow: hidden !important;
+        clip: rect(0, 0, 0, 0) !important;
+        white-space: nowrap !important;
+      }
+      #root section.campaign-hero .campaign-logo-video {
+        width: min(78vw, 760px);
+        aspect-ratio: 1024 / 572;
+        align-self: center;
+        margin: 0 auto 18px;
+        overflow: hidden;
+      }
+      #root section.campaign-hero .campaign-logo-video__media {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        mask-image: url("/assets/logo2harpia-mask.png");
+        mask-mode: alpha;
+        mask-repeat: no-repeat;
+        mask-position: center;
+        mask-size: 100% 100%;
+        -webkit-mask-image: url("/assets/logo2harpia-mask.png");
+        -webkit-mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        -webkit-mask-size: 100% 100%;
+      }
       #root section.campaign-hero p.label-caps.mb-8 {
         display: inline-block;
         padding: 10px 14px;
@@ -807,6 +837,9 @@
           font-size: 48px !important;
           line-height: 0.98 !important;
         }
+        #root section.campaign-hero .campaign-logo-video {
+          width: min(82vw, 600px);
+        }
         #root section.campaign-hero p.label-caps.mb-8 {
           padding: 8px 11px;
           font-size: 14px !important;
@@ -862,6 +895,10 @@
         #root section.campaign-hero .display-heading {
           font-size: 36px !important;
           line-height: 1 !important;
+        }
+        #root section.campaign-hero .campaign-logo-video {
+          width: min(78vw, 420px);
+          margin-bottom: 12px;
         }
         #root section.campaign-hero p.label-caps.mb-8 {
           padding: 7px 9px;
@@ -1219,6 +1256,28 @@
     return section;
   }
 
+  function addLogoVideoTitle(hero) {
+    const heading = hero.querySelector(".display-heading");
+    if (!heading || hero.querySelector(".campaign-logo-video")) return;
+
+    heading.classList.add("campaign-logo-heading");
+    const frame = document.createElement("div");
+    frame.className = "campaign-logo-video";
+    frame.setAttribute("aria-hidden", "true");
+
+    const video = document.createElement("video");
+    video.className = "campaign-logo-video__media";
+    video.src = "/ssstwitter.com_1791476129925.mp4";
+    video.autoplay = true;
+    video.loop = true;
+    video.muted = true;
+    video.playsInline = true;
+    video.preload = "metadata";
+    frame.append(video);
+    heading.insertAdjacentElement("beforebegin", frame);
+    video.play().catch(() => {});
+  }
+
   function updateContentView(navigationMenu, blogProfiles, docsSection, shouldScroll = false) {
     const currentView = ["#blog", "#docs"].includes(window.location.hash)
       ? window.location.hash.slice(1)
@@ -1254,6 +1313,7 @@
     ensureMarketStyles();
     hero.id = "home";
     hero.classList.add("campaign-hero");
+    addLogoVideoTitle(hero);
     if (!document.getElementById("campaign-background-layer")) {
       const backgroundLayer = document.createElement("div");
       backgroundLayer.id = "campaign-background-layer";
