@@ -26,7 +26,6 @@ Site estático do projeto cwmunismo.
 - 2026-10-22: Added verified badges to X profiles confirmed as verified.
 - 2026-10-22: Positioned each verified badge inline with its profile name.
 - 2026-10-22: Added a fail-closed X-authenticated publishing panel and public Blog feed.
-- 2026-10-22: Matched the admin login background and header to the public portal.
 
 - `index.html` serves the Pátria Vermelha portal with Home, Blog, and Docs views.
 - `assets/` contains compiled bundles, local profile images, organization logos, the `logo2harpia-mask.png` video mask, reference covers, the favicon, the static `cwmunismo.pw.jpg` social preview, and the animated GIF.

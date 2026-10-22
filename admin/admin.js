@@ -9,17 +9,6 @@
   const postsList = document.getElementById("posts-list");
   const fileInput = document.getElementById("media-file");
   let savedRange = null;
-  const backgroundVideo = document.querySelector(".admin-background-video");
-  function syncBackgroundVideo() {
-    if (!backgroundVideo) return;
-    if (document.hidden) {
-      backgroundVideo.pause();
-    } else {
-      backgroundVideo.play().catch(() => {});
-    }
-  }
-  document.addEventListener("visibilitychange", syncBackgroundVideo);
-  syncBackgroundVideo();
   document.querySelector(".x-login").href = `${apiBase}/api/auth/x/start`;
 
   function apiUrl(path) {
