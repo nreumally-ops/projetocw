@@ -102,6 +102,7 @@
       name: "Frente Anti Fascista Brasileira",
       handle: "@frenteantifabr",
       bio: "✊ FAB | Frente Antifascista Brasileira\nPela luta, justiça social e direitos do trabalhador.\nOrganização popular contra o autoritarismo e toda forma de opressão.",
+        verified: true,
       href: "https://x.com/frenteantifabr",
       banner: "/assets/frenteantifabr-banner.jpg",
       avatar: "/assets/frenteantifabr-avatar.png",
@@ -120,6 +121,7 @@
       name: "𝙂𝘼𝘽𝙍𝙄𝙀𝙇 𝘽𝙊𝙏𝙀𝙇𝙃𝙊",
       handle: "@VernichtenKlass",
       bio: "“A desvalorização do mundo humano aumenta na razão direta do aumento de valor do mundo dos objetos.” - Karl Marx.",
+        verified: true,
       href: "https://x.com/VernichtenKlass",
       banner: "/assets/vernichtenklass-banner.jpg",
       avatar: "/assets/vernichtenklass-avatar.jpg",
@@ -446,6 +448,11 @@
         object-fit: cover;
         background: #111;
       }
+        .social-profile-card__identity {
+          display: flex;
+          align-items: center;
+          gap: 7px;
+        }
       .social-profile-card__name {
         display: block;
         color: #fff;
@@ -453,6 +460,20 @@
         font-weight: 900;
         line-height: 1.2;
       }
+        .social-profile-card__verified {
+          display: inline-flex;
+          width: 20px;
+          height: 20px;
+          flex: 0 0 auto;
+          align-items: center;
+          justify-content: center;
+          color: #fff;
+        }
+        .social-profile-card__verified svg {
+          display: block;
+          width: 20px;
+          height: 20px;
+        }
       .social-profile-card__handle {
         display: block;
         margin-top: 4px;
@@ -1289,6 +1310,17 @@
     const name = document.createElement("span");
     name.className = "social-profile-card__name";
     name.textContent = profile.name;
+    const identity = document.createElement("span");
+    identity.className = "social-profile-card__identity";
+    identity.append(name);
+    if (profile.verified) {
+      const badge = document.createElement("span");
+      badge.className = "social-profile-card__verified";
+      badge.setAttribute("role", "img");
+      badge.setAttribute("aria-label", "Conta verificada no X");
+      badge.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#1d9bf0"></circle><path d="m7.5 12.2 3 3 6-6.4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"></path></svg>';
+      identity.append(badge);
+    }
     const handle = document.createElement("span");
     handle.className = "social-profile-card__handle";
     handle.textContent = profile.handle;
@@ -1296,7 +1328,7 @@
     action.className = "social-profile-card__action";
     action.textContent = `Ver perfil no ${profile.network} ↗`;
 
-    body.append(avatar, name, handle);
+    body.append(avatar, identity, handle);
     if (profile.bio) {
       const bio = document.createElement("span");
       bio.className = "social-profile-card__bio";
