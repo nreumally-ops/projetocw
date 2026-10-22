@@ -588,7 +588,7 @@
           transition: none;
         }
       }
-      #campaign-background-layer .campaign-background-video {
+      #campaign-background-layer .campaign-background-image {
         position: absolute;
         inset: 0;
         z-index: 0;
@@ -597,6 +597,7 @@
         object-fit: cover;
         opacity: 0.68;
         pointer-events: none;
+        user-select: none;
       }
       #root .campaign-app-shell {
         min-height: 0 !important;
@@ -1441,19 +1442,16 @@
       backgroundLayer.id = "campaign-background-layer";
       backgroundLayer.setAttribute("aria-hidden", "true");
 
-      const backgroundVideo = document.createElement("video");
-      backgroundVideo.className = "campaign-background-video";
-      backgroundVideo.src = "/ssstwitter.com_1791476129925.mp4";
-      backgroundVideo.autoplay = true;
-      backgroundVideo.loop = true;
-      backgroundVideo.muted = true;
-      backgroundVideo.playsInline = true;
-      backgroundVideo.preload = "auto";
-      backgroundVideo.setAttribute("aria-hidden", "true");
-      backgroundVideo.tabIndex = -1;
-      backgroundLayer.append(backgroundVideo);
+      const backgroundImage = document.createElement("img");
+      backgroundImage.className = "campaign-background-image";
+      backgroundImage.src = "/assets/bandeiracw.jpg";
+      backgroundImage.alt = "";
+      backgroundImage.loading = "eager";
+      backgroundImage.decoding = "async";
+      backgroundImage.setAttribute("aria-hidden", "true");
+      backgroundImage.tabIndex = -1;
+      backgroundLayer.append(backgroundImage);
       document.body.prepend(backgroundLayer);
-      backgroundVideo.play().catch(() => {});
     }
     const appShell = Array.from(root.children).find(
       (child) => child.classList.contains("min-h-screen") && child.classList.contains("bg-background"),
