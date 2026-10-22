@@ -25,10 +25,14 @@ Site estático do projeto cwmunismo.
 - 2026-10-22: Replaced summarized profile descriptions with exact X bios.
 - 2026-10-22: Added verified badges to X profiles confirmed as verified.
 - 2026-10-22: Positioned each verified badge inline with its profile name.
+- 2026-10-22: Added a fail-closed X-authenticated publishing panel and public Blog feed.
 
 - `index.html` serves the Pátria Vermelha portal with Home, Blog, and Docs views.
 - `assets/` contains compiled bundles, local profile images, organization logos, the `logo2harpia-mask.png` video mask, reference covers, the favicon, the static `cwmunismo.pw.jpg` social preview, and the animated GIF.
 - The homepage uses a muted background video; link previews prioritize the static image for compatibility, with the optimized 480 x 384 animated GIF as a secondary Open Graph image.
 - APOIE currently links to `https://x.com/cwmunista`.
-- `server.py` serves the allowlisted static files, security headers, and the optional PostgreSQL support endpoint.
-- Vercel should publish the existing `nreumally-ops/projetocw` repository as a static site; unsupported login/admin routes are not part of this import.
+- `/admin/` serves the X-authenticated publishing panel; Vercel Python Functions provide its API, and published posts appear in Blog.
+- `server.py` serves the allowlisted static files, security headers, and the optional PostgreSQL support endpoint. For local API testing use `vercel dev`; the static server does not run serverless functions.
+- The panel requires X OAuth, an X user-ID allowlist, PostgreSQL, and Supabase Storage configuration. Setup is documented in `docs/admin-editor.md`; without those variables, authentication and publishing fail closed.
+- The requested `admin.cwmunista.vercel.app` hostname does not currently resolve. Until a domain is assigned to the Vercel project, use `https://cwmunista.vercel.app/admin/`.
+- Vercel publishes the existing `nreumally-ops/projetocw` repository.

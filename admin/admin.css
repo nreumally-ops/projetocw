@@ -1,0 +1,425 @@
+:root {
+  color-scheme: dark;
+  --admin-ink: #090909;
+  --admin-panel: rgba(10, 10, 10, 0.92);
+  --admin-line: rgba(255, 255, 255, 0.2);
+  --admin-muted: rgba(255, 255, 255, 0.62);
+  --admin-red: #c3423f;
+  --admin-white: #fff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  background: var(--admin-ink) url("/assets/cwmunismo.pw.jpg") center / cover fixed;
+  color: var(--admin-white);
+  font-family: Inter, Arial, sans-serif;
+}
+
+body::before {
+  position: fixed;
+  z-index: -1;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.82);
+  content: "";
+}
+
+button,
+input,
+a {
+  font: inherit;
+}
+
+.admin-topbar {
+  display: flex;
+  min-height: 68px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 0 clamp(18px, 4vw, 56px);
+  border-bottom: 1px solid var(--admin-line);
+  background: rgba(0, 0, 0, 0.88);
+}
+
+.admin-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.brand-mark {
+  color: var(--admin-red);
+  font-family: "Segoe UI Symbol", sans-serif;
+  font-size: 26px;
+}
+
+.admin-label,
+.eyebrow {
+  color: var(--admin-red);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.back-link {
+  color: var(--admin-muted);
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.back-link:hover,
+.back-link:focus-visible {
+  color: #fff;
+}
+
+.admin-main {
+  width: min(100% - 32px, 900px);
+  margin: 0 auto;
+  padding: clamp(36px, 7vh, 72px) 0 80px;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.login-panel {
+  width: min(100%, 420px);
+  margin: 8vh auto 0;
+  padding: 32px;
+  border: 1px solid var(--admin-line);
+  border-top: 3px solid var(--admin-red);
+  background: var(--admin-panel);
+  box-shadow: 6px 7px 0 rgba(103, 23, 24, 0.6);
+}
+
+.login-panel h1,
+.workspace-heading h1 {
+  margin: 7px 0 10px;
+  font-size: clamp(28px, 6vw, 38px);
+  line-height: 1.1;
+}
+
+.login-copy {
+  margin: 0 0 25px;
+  color: var(--admin-muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.x-login,
+.publish-button {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+  padding: 0 18px;
+  border: 1px solid var(--admin-red);
+  background: var(--admin-red);
+  color: #fff;
+  font-weight: 800;
+  text-decoration: none;
+  transition: background 160ms ease, color 160ms ease;
+}
+
+.x-login {
+  width: 100%;
+}
+
+.x-login svg {
+  width: 18px;
+  height: 18px;
+}
+
+.x-login:hover,
+.publish-button:hover {
+  background: #fff;
+  color: #111;
+}
+
+.login-status,
+.composer-status {
+  min-height: 20px;
+  margin: 14px 0 0;
+  color: #ffb5ad;
+  font-size: 13px;
+}
+
+.workspace-heading,
+.posts-heading,
+.composer-heading,
+.composer-footer,
+.user-session {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.workspace-heading {
+  margin-bottom: 28px;
+}
+
+.workspace-heading .eyebrow {
+  margin: 0;
+}
+
+.workspace-heading h1,
+.posts-heading h2,
+.composer-heading h2 {
+  margin-top: 6px;
+}
+
+.user-session {
+  color: var(--admin-muted);
+  font-size: 13px;
+}
+
+.logout-button,
+.refresh-button {
+  min-height: 38px;
+  padding: 0 12px;
+  border: 1px solid var(--admin-line);
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  cursor: pointer;
+}
+
+.composer,
+.posts-section {
+  border: 1px solid var(--admin-line);
+  background: var(--admin-panel);
+}
+
+.composer {
+  padding: clamp(18px, 4vw, 28px);
+}
+
+.composer-heading h2,
+.posts-heading h2 {
+  margin-bottom: 0;
+  font-size: 19px;
+}
+
+.composer-heading span {
+  color: var(--admin-muted);
+  font-size: 12px;
+}
+
+.editor-toolbar {
+  display: flex;
+  min-height: 48px;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 7px;
+  margin-top: 20px;
+  padding: 8px;
+  border: 1px solid var(--admin-line);
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.editor-toolbar button,
+.media-control,
+.color-control {
+  display: inline-flex;
+  min-width: 36px;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 0 9px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: #fff;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.editor-toolbar button:hover,
+.media-control:hover,
+.color-control:hover {
+  border-color: var(--admin-line);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.toolbar-divider {
+  width: 1px;
+  height: 23px;
+  background: var(--admin-line);
+}
+
+.color-control input {
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.editor {
+  min-height: 220px;
+  margin-top: 12px;
+  padding: 17px;
+  border: 1px solid var(--admin-line);
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font-size: 16px;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+}
+
+.editor:focus {
+  border-color: rgba(195, 66, 63, 0.9);
+  outline: 1px solid var(--admin-red);
+}
+
+.editor:empty::before {
+  color: rgba(255, 255, 255, 0.42);
+  content: attr(data-placeholder);
+  pointer-events: none;
+}
+
+.editor img,
+.editor video,
+.post-content img,
+.post-content video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 12px 0;
+}
+
+.editor video,
+.post-content video {
+  max-height: 540px;
+  background: #000;
+}
+
+.composer-footer {
+  margin-top: 14px;
+}
+
+.composer-status {
+  margin: 0;
+}
+
+.publish-button {
+  flex: 0 0 auto;
+  cursor: pointer;
+}
+
+.publish-button:disabled {
+  opacity: 0.55;
+  cursor: progress;
+}
+
+.posts-section {
+  margin-top: 35px;
+  padding: 22px;
+}
+
+.posts-heading {
+  margin-bottom: 17px;
+}
+
+.posts-list {
+  display: grid;
+  gap: 12px;
+}
+
+.admin-post {
+  padding: 18px;
+  border: 1px solid var(--admin-line);
+  background: rgba(0, 0, 0, 0.56);
+}
+
+.admin-post-meta,
+.admin-post-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.admin-post-meta {
+  color: var(--admin-muted);
+  font-size: 12px;
+}
+
+.post-content {
+  margin-top: 14px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.post-content a {
+  color: #f28a82;
+}
+
+.delete-post {
+  min-height: 32px;
+  padding: 0 9px;
+  border: 1px solid rgba(195, 66, 63, 0.7);
+  background: transparent;
+  color: #ffb5ad;
+  cursor: pointer;
+}
+
+.empty-posts {
+  padding: 20px 0;
+  color: var(--admin-muted);
+  font-size: 14px;
+}
+
+@media (max-width: 600px) {
+  .admin-topbar {
+    min-height: 58px;
+    gap: 8px;
+    padding-inline: 14px;
+  }
+
+  .admin-label {
+    display: none;
+  }
+
+  .admin-main {
+    width: min(100% - 24px, 900px);
+    padding-top: 28px;
+  }
+
+  .login-panel {
+    margin-top: 4vh;
+    padding: 24px;
+  }
+
+  .workspace-heading,
+  .composer-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .user-session {
+    width: 100%;
+  }
+
+  .posts-section {
+    padding: 15px;
+  }
+
+  .composer-footer {
+    align-items: flex-end;
+  }
+
+  .composer-status {
+    max-width: 55%;
+  }
+}

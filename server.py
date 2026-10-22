@@ -32,9 +32,9 @@ SECURITY_HEADERS = {
         "script-src 'self'; "
         "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "
         "font-src 'self' https://fonts.gstatic.com data:; "
-        "img-src 'self' data: https://flagcdn.com; "
-        "connect-src 'self'; "
-        "media-src 'self' blob:; "
+        "img-src 'self' data: https://flagcdn.com https://*.supabase.co; "
+        "connect-src 'self' https://cwmunista.vercel.app https://*.supabase.co; "
+        "media-src 'self' blob: https://*.supabase.co; "
         "frame-src 'none'"
     ),
     "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
@@ -50,6 +50,7 @@ PUBLIC_FILES = {
     and path.suffix.lower() in {".html", ".png", ".jpg", ".jpeg", ".svg", ".ico", ".mp3", ".mp4", ".webp", ".gif"}
 }
 PUBLIC_FILES.add("branding.js")
+ADMIN_PUBLIC_FILES = {"admin/index.html", "admin/admin.css", "admin/admin.js"}
 TRUSTED_PROXY_NETWORKS = tuple(
     ipaddress.ip_network(value.strip(), strict=False)
     for value in os.environ.get("TRUSTED_PROXY_CIDRS", "").split(",")
@@ -294,6 +295,9 @@ class SiteHandler(SimpleHTTPRequestHandler):
 
     def send_head(self):
         path = unquote(urlsplit(self.path).path)
+        if path in {"/admin", "/admin/"}:
+            path = "/admin/index.html"
+            self.path = path
         parts = Path(path).parts
         if any(part.startswith(".") or part == ".." for part in parts):
             self.send_error(404)
@@ -313,6 +317,7 @@ class SiteHandler(SimpleHTTPRequestHandler):
             return None
         is_public = (
             path.lstrip("/") in PUBLIC_FILES
+            or path.lstrip("/") in ADMIN_PUBLIC_FILES
             or (
                 path.startswith("/assets/")
                 and target.is_file()
