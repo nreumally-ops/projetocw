@@ -399,53 +399,6 @@
         align-items: stretch;
         gap: 28px;
       }
-      .published-posts {
-        display: grid;
-        gap: 16px;
-        margin-bottom: 32px;
-      }
-      .published-posts:empty {
-        display: none;
-      }
-      .published-post {
-        padding: 20px;
-        border: 1px solid rgba(255, 255, 255, 0.22);
-        background: rgba(0, 0, 0, 0.9);
-        color: #fff;
-      }
-      .published-post__meta {
-        display: flex;
-        align-items: baseline;
-        justify-content: space-between;
-        gap: 12px;
-        color: rgba(255, 255, 255, 0.65);
-        font-size: 13px;
-      }
-      .published-post__author {
-        color: #fff;
-        font-weight: 800;
-      }
-      .published-post__content {
-        margin-top: 14px;
-        overflow-wrap: anywhere;
-        font-size: 16px;
-        line-height: 1.65;
-        white-space: normal;
-      }
-      .published-post__content a {
-        color: #f28a82;
-      }
-      .published-post__content img,
-      .published-post__content video {
-        display: block;
-        max-width: 100%;
-        max-height: 600px;
-        height: auto;
-        margin: 14px 0;
-      }
-      .published-post__content video {
-        background: #000;
-      }
       .social-profile-card {
         box-sizing: border-box;
         display: flex;
@@ -1390,38 +1343,6 @@
     return card;
   }
 
-  function createPublishedPostCard(post) {
-    const article = document.createElement("article");
-    article.className = "published-post";
-
-    const meta = document.createElement("div");
-    meta.className = "published-post__meta";
-    const author = document.createElement("strong");
-    author.className = "published-post__author";
-    author.textContent = post.author_name || `@${post.author_username}`;
-    const date = document.createElement("time");
-    date.dateTime = post.created_at;
-    date.textContent = new Intl.DateTimeFormat("pt-BR", { dateStyle: "medium", timeStyle: "short" }).format(new Date(post.created_at));
-    meta.append(author, date);
-
-    const content = document.createElement("div");
-    content.className = "published-post__content";
-    content.innerHTML = post.content_html;
-    article.append(meta, content);
-    return article;
-  }
-
-  async function loadPublishedPosts(container) {
-    try {
-      const response = await fetch("/api/posts", { cache: "no-store" });
-      if (!response.ok) return;
-      const result = await response.json();
-      (result.posts || []).forEach((post) => container.append(createPublishedPostCard(post)));
-    } catch {
-      container.replaceChildren();
-    }
-  }
-
   function createBlogProfilesSection() {
     const section = document.createElement("section");
     section.id = "blog";
@@ -1433,14 +1354,10 @@
     const heading = document.createElement("h2");
     heading.className = "blog-profiles__heading";
     heading.textContent = "Perfis";
-    const publishedPosts = document.createElement("div");
-    publishedPosts.className = "published-posts";
-    publishedPosts.setAttribute("aria-label", "Publicações do portal");
     const grid = document.createElement("div");
     grid.className = "blog-profiles__grid";
     socialProfiles.forEach((profile) => grid.append(createSocialProfileCard(profile)));
-    content.append(heading, publishedPosts, grid);
-    loadPublishedPosts(publishedPosts);
+    content.append(heading, grid);
     section.append(content);
     return section;
   }
