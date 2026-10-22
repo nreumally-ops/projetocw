@@ -22,6 +22,7 @@
   const navigationMenuItems = [
     { title: "Home", href: "#home", icon: "Home", view: "home" },
     { title: "Blog", href: "#blog", icon: "Rss", view: "blog" },
+    { title: "Docs", href: "#docs", icon: "BookOpen", view: "docs" },
   ];
   const socialProfiles = [
     {
@@ -1202,9 +1203,28 @@
     return section;
   }
 
-  function updateContentView(navigationMenu, blogProfiles, shouldScroll = false) {
-    const currentView = window.location.hash === "#blog" ? "blog" : "home";
+  function createDocsSection() {
+    const section = document.createElement("section");
+    section.id = "docs";
+    section.className = "blog-profiles docs-resources";
+    section.setAttribute("aria-label", "Docs");
+
+    const content = document.createElement("div");
+    content.className = "blog-profiles__content";
+    const heading = document.createElement("h2");
+    heading.className = "blog-profiles__heading";
+    heading.textContent = "Docs";
+    content.append(heading);
+    section.append(content);
+    return section;
+  }
+
+  function updateContentView(navigationMenu, blogProfiles, docsSection, shouldScroll = false) {
+    const currentView = ["#blog", "#docs"].includes(window.location.hash)
+      ? window.location.hash.slice(1)
+      : "home";
     blogProfiles.hidden = currentView !== "blog";
+    docsSection.hidden = currentView !== "docs";
 
     navigationMenu.querySelectorAll(".campaign-navigation__link").forEach((link) => {
       if (link.hash === `#${currentView}`) {
@@ -1215,7 +1235,11 @@
     });
 
     if (shouldScroll) {
-      const activeSection = currentView === "blog" ? blogProfiles : document.getElementById("home");
+      const activeSection = currentView === "blog"
+        ? blogProfiles
+        : currentView === "docs"
+          ? docsSection
+          : document.getElementById("home");
       activeSection.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   }
@@ -1270,15 +1294,20 @@
       blogProfiles = createBlogProfilesSection();
       navigationMenu.insertAdjacentElement("afterend", blogProfiles);
     }
-    updateContentView(navigationMenu, blogProfiles);
+    let docsSection = document.getElementById("docs");
+    if (!docsSection) {
+      docsSection = createDocsSection();
+      blogProfiles.insertAdjacentElement("afterend", docsSection);
+    }
+    updateContentView(navigationMenu, blogProfiles, docsSection);
     if (navigationMenu.dataset.viewNavigation !== "true") {
       navigationMenu.dataset.viewNavigation = "true";
       window.addEventListener("hashchange", () => {
-        updateContentView(navigationMenu, blogProfiles, true);
+        updateContentView(navigationMenu, blogProfiles, docsSection, true);
       });
       if (window.location.hash) {
         requestAnimationFrame(() => {
-          updateContentView(navigationMenu, blogProfiles, true);
+          updateContentView(navigationMenu, blogProfiles, docsSection, true);
         });
       }
     }
@@ -1303,7 +1332,7 @@
     configureHeroAction(hero, "Criar seu perfil", "support", supportLabel);
 
     root.querySelectorAll("section").forEach((section) => {
-      if (section !== hero && section !== blogProfiles) {
+      if (section !== hero && section !== blogProfiles && section !== docsSection) {
         section.dataset.campaignHidden = "true";
         section.setAttribute("aria-hidden", "true");
       }
