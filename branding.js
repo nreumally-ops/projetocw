@@ -449,12 +449,13 @@
         background: #111;
       }
         .social-profile-card__identity {
-          display: flex;
-          align-items: center;
-          gap: 7px;
+          display: block;
+          align-self: flex-start;
+          max-width: 100%;
+          line-height: 1.2;
         }
       .social-profile-card__name {
-        display: block;
+          display: inline;
         color: #fff;
         font-size: 22px;
         font-weight: 900;
@@ -467,7 +468,9 @@
           flex: 0 0 auto;
           align-items: center;
           justify-content: center;
+          margin-left: 6px;
           color: #fff;
+          vertical-align: middle;
         }
         .social-profile-card__verified svg {
           display: block;
