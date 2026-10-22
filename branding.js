@@ -1510,7 +1510,7 @@
     const market = document.getElementById(marketId);
     if (market) market.remove();
 
-    const supportLabel = language === "PT" ? "APOIE" : "SUPPORT";
+    const supportLabel = language === "PT" ? "JUNTE-SE" : "SUPPORT";
     configureHeroAction(hero, "Criar seu perfil", "support", supportLabel);
 
     root.querySelectorAll("section").forEach((section) => {
