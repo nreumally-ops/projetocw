@@ -17,8 +17,9 @@ Site estático do projeto cwmunismo.
 - 2026-10-21: Removed the organization directory and its category tabs from Home.
 - 2026-10-22: Removed the @organizeseja profile from Blog.
 - 2026-10-22: Renamed the homepage header brand to Pátria Vermelha.
+- 2026-10-22: Removed the reference materials and Docs tab from the portal.
 
-- `index.html` serves the Pátria Vermelha portal with Home, Blog, and Docs views.
+- `index.html` serves the Pátria Vermelha portal with Home and Blog views.
 - `assets/` contains compiled bundles, local profile images, organization logos, reference covers, the favicon, the static `cwmunismo.pw.jpg` social preview, and the animated GIF.
 - The homepage uses a muted background video; link previews prioritize the static image for compatibility, with the optimized 480 x 384 animated GIF as a secondary Open Graph image.
 - APOIE currently links to `https://x.com/cwmunista`.

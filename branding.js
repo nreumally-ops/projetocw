@@ -22,28 +22,6 @@
   const navigationMenuItems = [
     { title: "Home", href: "#home", icon: "Home", view: "home" },
     { title: "Blog", href: "#blog", icon: "Rss", view: "blog" },
-    { title: "Docs", href: "#docs", icon: "BookOpen", view: "docs" },
-  ];
-  const documentResources = [
-    {
-      category: "Biblioteca digital",
-      title: "Arquivo Marxista na Internet",
-      description: "Biblioteca em português com textos, dicionário, novidades e materiais temáticos.",
-      cover: "/assets/karl-marx-og.webp",
-      coverAlt: "Retrato de Karl Marx",
-      href: "https://www.marxists.org/portugues/",
-      action: "Explorar arquivo",
-    },
-    {
-      category: "Livro em PDF",
-      title: "Dicionário do Pensamento Marxista",
-      description: "Versão digital em PDF hospedada pelo portal Marxismo 21.",
-      cover: "/assets/dicionario.marx.jpg",
-      coverAlt: "Capa do Dicionário do Pensamento Marxista",
-      coverFit: "contain",
-      href: "https://marxismo21.org/wp-content/uploads/2012/12/Dicion-rio-do-Pensamento-Marxista.pdf",
-      action: "Abrir PDF",
-    },
   ];
   const socialProfiles = [
     {
@@ -280,8 +258,7 @@
           font-size: 26px;
         }
       }
-      #root section.blog-profiles[hidden],
-      #root section.docs-resources[hidden] {
+      #root section.blog-profiles[hidden] {
         display: none !important;
       }
       #root section.blog-profiles {
@@ -289,9 +266,6 @@
         padding: clamp(52px, 8vw, 96px) 20px;
         border-top: 1px solid rgba(255, 255, 255, 0.14);
         background: rgba(8, 8, 8, 0.48);
-      }
-      #root section.docs-resources {
-        min-height: 100svh;
       }
       .blog-profiles__content {
         width: min(100%, 1240px);
@@ -381,72 +355,6 @@
       }
       .social-profile-card__action {
         display: inline-block;
-        align-self: flex-start;
-        margin-top: auto;
-        padding: 9px 12px;
-        border: 1px solid rgba(255, 255, 255, 0.4);
-        color: #fff;
-        font-size: 13px;
-        font-weight: 800;
-      }
-      .docs-resource-card {
-        box-sizing: border-box;
-        display: flex;
-        min-height: 240px;
-        height: 100%;
-        flex-direction: column;
-        overflow: hidden;
-        border: 1px solid rgba(255, 255, 255, 0.24);
-        background: rgba(0, 0, 0, 0.9);
-        color: #fff;
-        text-decoration: none;
-        transition: border-color 160ms ease, transform 160ms ease;
-      }
-      .docs-resource-card:hover {
-        transform: translateY(-3px);
-        border-color: rgba(255, 255, 255, 0.6);
-      }
-      .docs-resource-card:focus-visible {
-        outline: 2px solid #fff8ed;
-        outline-offset: 5px;
-      }
-      .docs-resource-card__cover {
-        display: block;
-        width: 100%;
-        aspect-ratio: 16 / 9;
-        object-fit: cover;
-        background: #171314;
-      }
-      .docs-resource-card__cover--contain {
-        object-fit: contain;
-      }
-      .docs-resource-card__body {
-        display: flex;
-        flex: 1;
-        flex-direction: column;
-        padding: 20px;
-      }
-      .docs-resource-card__category {
-        color: rgba(255, 255, 255, 0.62);
-        font-size: 13px;
-        font-weight: 800;
-        text-transform: uppercase;
-      }
-      .docs-resource-card__title {
-        display: block;
-        margin-top: 14px;
-        font-size: 22px;
-        font-weight: 900;
-        line-height: 1.25;
-      }
-      .docs-resource-card__description {
-        display: block;
-        margin-top: 12px;
-        color: rgba(255, 255, 255, 0.9);
-        font-size: 16px;
-        line-height: 1.5;
-      }
-      .docs-resource-card__action {
         align-self: flex-start;
         margin-top: auto;
         padding: 9px 12px;
@@ -1294,66 +1202,9 @@
     return section;
   }
 
-  function createDocsSection() {
-    const section = document.createElement("section");
-    section.id = "docs";
-    section.className = "blog-profiles docs-resources";
-    section.setAttribute("aria-label", "Materiais de referência");
-
-    const content = document.createElement("div");
-    content.className = "blog-profiles__content";
-    const heading = document.createElement("h2");
-    heading.className = "blog-profiles__heading";
-    heading.textContent = "Materiais de referência";
-    const grid = document.createElement("div");
-    grid.className = "blog-profiles__grid";
-
-    documentResources.forEach((resource) => {
-      const card = document.createElement("a");
-      card.className = "docs-resource-card";
-      card.href = resource.href;
-      card.target = "_blank";
-      card.rel = "noopener noreferrer";
-
-      const cover = document.createElement("img");
-      cover.className = `docs-resource-card__cover${resource.coverFit === "contain" ? " docs-resource-card__cover--contain" : ""}`;
-      cover.src = resource.cover;
-      cover.alt = resource.coverAlt;
-      cover.loading = "lazy";
-      cover.decoding = "async";
-
-      const body = document.createElement("span");
-      body.className = "docs-resource-card__body";
-
-      const category = document.createElement("span");
-      category.className = "docs-resource-card__category";
-      category.textContent = resource.category;
-      const title = document.createElement("strong");
-      title.className = "docs-resource-card__title";
-      title.textContent = resource.title;
-      const description = document.createElement("span");
-      description.className = "docs-resource-card__description";
-      description.textContent = resource.description;
-      const action = document.createElement("span");
-      action.className = "docs-resource-card__action";
-      action.textContent = `${resource.action} ↗`;
-
-      body.append(category, title, description, action);
-      card.append(cover, body);
-      grid.append(card);
-    });
-
-    content.append(heading, grid);
-    section.append(content);
-    return section;
-  }
-
-  function updateContentView(navigationMenu, blogProfiles, docsResources, shouldScroll = false) {
-    const currentView = ["#blog", "#docs"].includes(window.location.hash)
-      ? window.location.hash.slice(1)
-      : "home";
+  function updateContentView(navigationMenu, blogProfiles, shouldScroll = false) {
+    const currentView = window.location.hash === "#blog" ? "blog" : "home";
     blogProfiles.hidden = currentView !== "blog";
-    docsResources.hidden = currentView !== "docs";
 
     navigationMenu.querySelectorAll(".campaign-navigation__link").forEach((link) => {
       if (link.hash === `#${currentView}`) {
@@ -1364,11 +1215,7 @@
     });
 
     if (shouldScroll) {
-      const activeSection = currentView === "home"
-        ? document.getElementById("home")
-        : currentView === "blog"
-          ? blogProfiles
-          : docsResources;
+      const activeSection = currentView === "blog" ? blogProfiles : document.getElementById("home");
       activeSection.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   }
@@ -1423,20 +1270,15 @@
       blogProfiles = createBlogProfilesSection();
       navigationMenu.insertAdjacentElement("afterend", blogProfiles);
     }
-    let docsResources = document.getElementById("docs");
-    if (!docsResources) {
-      docsResources = createDocsSection();
-      blogProfiles.insertAdjacentElement("afterend", docsResources);
-    }
-    updateContentView(navigationMenu, blogProfiles, docsResources);
+    updateContentView(navigationMenu, blogProfiles);
     if (navigationMenu.dataset.viewNavigation !== "true") {
       navigationMenu.dataset.viewNavigation = "true";
       window.addEventListener("hashchange", () => {
-        updateContentView(navigationMenu, blogProfiles, docsResources, true);
+        updateContentView(navigationMenu, blogProfiles, true);
       });
       if (window.location.hash) {
         requestAnimationFrame(() => {
-          updateContentView(navigationMenu, blogProfiles, docsResources, true);
+          updateContentView(navigationMenu, blogProfiles, true);
         });
       }
     }
@@ -1461,7 +1303,7 @@
     configureHeroAction(hero, "Criar seu perfil", "support", supportLabel);
 
     root.querySelectorAll("section").forEach((section) => {
-      if (section !== hero && section !== blogProfiles && section !== docsResources) {
+      if (section !== hero && section !== blogProfiles) {
         section.dataset.campaignHidden = "true";
         section.setAttribute("aria-hidden", "true");
       }
