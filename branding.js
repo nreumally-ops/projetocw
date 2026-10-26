@@ -9,14 +9,14 @@
 
   const campaign = {
     PT: {
-      tagline: "contra a hegemonia",
+      tagline: "",
       headings: ["organizar pra vencer.", "", ""],
-      description: "a teoria na prática. a mídia da classe precisa da sua força pra rodar.",
+      description: "",
     },
     EN: {
-      tagline: "against hegemony",
+      tagline: "",
       headings: ["organize to win.", "", ""],
-      description: "theory in practice. the media of the class needs your support to keep running.",
+      description: "",
     },
   };
   const navigationMenuItems = [
@@ -1508,7 +1508,7 @@
     const market = document.getElementById(marketId);
     if (market) market.remove();
 
-    const supportLabel = language === "PT" ? "JUNTE-SE" : "SUPPORT";
+    const supportLabel = language === "PT" ? "UNI-VOS" : "SUPPORT";
     const sourceLabel = language === "PT" ? "Criar seu perfil" : "Create your profile";
     configureHeroAction(hero, sourceLabel, "support", supportLabel);
 
@@ -1546,8 +1546,11 @@
     }
 
     const tagline = document.querySelector("p.label-caps.mb-8");
-    if (tagline && tagline.textContent !== copy.tagline) {
-      tagline.textContent = copy.tagline;
+    if (tagline) {
+      if (tagline.textContent !== copy.tagline) {
+        tagline.textContent = copy.tagline;
+      }
+      tagline.hidden = !copy.tagline;
     }
 
     const headings = document.querySelectorAll(".display-heading");
@@ -1562,8 +1565,11 @@
     }
 
     const description = document.querySelector("p.max-w-md.leading-relaxed");
-    if (description && description.textContent !== copy.description) {
-      description.textContent = copy.description;
+    if (description) {
+      if (description.textContent !== copy.description) {
+        description.textContent = copy.description;
+      }
+      description.hidden = !copy.description;
     }
 
     applyCampaignLayout(lang);
