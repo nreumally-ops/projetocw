@@ -1509,7 +1509,8 @@
     if (market) market.remove();
 
     const supportLabel = language === "PT" ? "JUNTE-SE" : "SUPPORT";
-    configureHeroAction(hero, "Criar seu perfil", "support", supportLabel);
+    const sourceLabel = language === "PT" ? "Criar seu perfil" : "Create your profile";
+    configureHeroAction(hero, sourceLabel, "support", supportLabel);
 
     root.querySelectorAll("section").forEach((section) => {
       if (section !== hero && section !== blogProfiles && section !== docsSection) {

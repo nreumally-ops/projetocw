@@ -27,6 +27,7 @@ Site estático do projeto cwmunismo.
 - 2026-10-22: Positioned each verified badge inline with its profile name.
 - 2026-10-22: Changed the Portuguese hero action label from APOIE to JUNTE-SE.
 - 2026-10-22: Replaced the page background video with the bandeiracw image, keeping the logo video.
+- 2026-10-26: Fixed the English hero action label so it displays SUPPORT instead of Create your profile.
 
 - `index.html` serves the Pátria Vermelha portal with Home, Blog, and Docs views.
 - `assets/` contains compiled bundles, local profile images, organization logos, the `bandeiracw.jpg` page background, the `logo2harpia-mask.png` video mask, reference covers, the favicon, the static `cwmunismo.pw.jpg` social preview, and the animated GIF.
