@@ -599,6 +599,61 @@
         pointer-events: none;
         user-select: none;
       }
+      #campaign-link-preview {
+        position: fixed;
+        z-index: 20;
+        display: block;
+        width: min(200px, calc(100vw - 24px));
+        aspect-ratio: 8 / 5;
+        box-sizing: border-box;
+        padding: 4px;
+        border: 2px solid transparent;
+        border-radius: 12px;
+        background: #fff;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.32);
+        opacity: 0;
+        visibility: hidden;
+        transform: translate(-50%, -100%) translateY(20px) scale(0.6);
+        transform-origin: center;
+        transition: opacity 160ms ease, transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1), visibility 160ms;
+      }
+      #campaign-link-preview[data-visible="true"] {
+        opacity: 1;
+        visibility: visible;
+        transform: translate(-50%, -100%) scale(1);
+      }
+      #campaign-link-preview[data-placement="bottom"] {
+        transform: translate(-50%, 0) translateY(-20px) scale(0.6);
+      }
+      #campaign-link-preview[data-placement="bottom"][data-visible="true"] {
+        transform: translate(-50%, 0) scale(1);
+      }
+      #campaign-link-preview img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        border-radius: 8px;
+        object-fit: cover;
+      }
+      #campaign-link-preview[data-unavailable="true"] {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #333;
+        font: 600 12px/1.4 Inter, sans-serif;
+        text-align: center;
+      }
+      #campaign-link-preview[data-unavailable="true"]::after {
+        content: "Preview unavailable";
+      }
+      #campaign-link-preview[data-unavailable="true"] img {
+        display: none;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        #campaign-link-preview {
+          transition: none;
+        }
+      }
       #root .campaign-app-shell {
         min-height: 0 !important;
         background: transparent !important;
@@ -1288,6 +1343,165 @@
     return nav;
   }
 
+  function ensureLinkPreviews() {
+    if (document.getElementById("campaign-link-preview")) return;
+
+    const preview = document.createElement("a");
+    preview.id = "campaign-link-preview";
+    preview.href = "#";
+    preview.target = "_blank";
+    preview.rel = "noopener noreferrer";
+    preview.tabIndex = -1;
+    preview.setAttribute("aria-hidden", "true");
+    preview.dataset.visible = "false";
+    preview.dataset.placement = "top";
+
+    const image = document.createElement("img");
+    image.alt = "";
+    image.width = 200;
+    image.height = 125;
+    image.decoding = "async";
+    preview.append(image);
+    document.body.append(preview);
+
+    let activeLink = null;
+    let showTimer = 0;
+    let hideTimer = 0;
+    let requestId = 0;
+
+    function getExternalLink(target) {
+      if (!(target instanceof Element)) return null;
+      const link = target.closest("a[href]");
+      if (!link || link === preview) return null;
+
+      try {
+        const url = new URL(link.href, window.location.href);
+        return ["http:", "https:"].includes(url.protocol) && url.origin !== window.location.origin
+          ? link
+          : null;
+      } catch {
+        return null;
+      }
+    }
+
+    function positionPreview(link, pointerEvent) {
+      const rect = link.getBoundingClientRect();
+      const previewRect = preview.getBoundingClientRect();
+      const width = previewRect.width || 200;
+      const height = previewRect.height || 125;
+      const pointerOffset = pointerEvent && rect.width
+        ? (pointerEvent.clientX - rect.left - rect.width / 2) / 2
+        : 0;
+      const minLeft = width / 2 + 12;
+      const maxLeft = Math.max(minLeft, window.innerWidth - width / 2 - 12);
+      const center = rect.left + rect.width / 2 + pointerOffset;
+      const topPlacement = rect.top >= height + 20;
+
+      preview.dataset.placement = topPlacement ? "top" : "bottom";
+      preview.style.left = `${Math.min(Math.max(center, minLeft), maxLeft)}px`;
+      preview.style.top = topPlacement
+        ? `${rect.top - 12}px`
+        : `${Math.max(12, Math.min(rect.bottom + 12, window.innerHeight - height - 12))}px`;
+    }
+
+    function hidePreview() {
+      window.clearTimeout(showTimer);
+      window.clearTimeout(hideTimer);
+      hideTimer = window.setTimeout(() => {
+        preview.dataset.visible = "false";
+        activeLink = null;
+      }, 100);
+    }
+
+    function showPreview(link, pointerEvent) {
+      window.clearTimeout(hideTimer);
+      if (activeLink !== link) {
+        activeLink = link;
+        requestId += 1;
+        const currentRequest = requestId;
+        const url = new URL(link.href, window.location.href);
+        const params = new URLSearchParams({
+          url: url.href,
+          screenshot: "true",
+          meta: "false",
+          embed: "screenshot.url",
+          colorScheme: "dark",
+          "viewport.isMobile": "true",
+          "viewport.deviceScaleFactor": "1",
+          "viewport.width": "600",
+          "viewport.height": "375",
+        });
+
+        preview.href = url.href;
+        preview.target = link.target || "_blank";
+        image.dataset.requestId = String(currentRequest);
+        preview.dataset.unavailable = "false";
+        image.onload = () => {
+          if (image.dataset.requestId === String(currentRequest)) {
+            preview.dataset.unavailable = "false";
+          }
+        };
+        image.onerror = () => {
+          if (image.dataset.requestId === String(currentRequest)) {
+            preview.dataset.unavailable = "true";
+          }
+        };
+        image.src = `https://api.microlink.io/?${params.toString()}`;
+      }
+
+      positionPreview(link, pointerEvent);
+      window.clearTimeout(showTimer);
+      if (preview.dataset.visible !== "true") {
+        showTimer = window.setTimeout(() => {
+          if (activeLink === link) preview.dataset.visible = "true";
+        }, 50);
+      }
+    }
+
+    document.addEventListener("pointerover", (event) => {
+      if (event.pointerType === "touch") return;
+      const link = getExternalLink(event.target);
+      if (!link || (event.relatedTarget instanceof Node && link.contains(event.relatedTarget))) return;
+      showPreview(link, event);
+    });
+    document.addEventListener("pointermove", (event) => {
+      const link = getExternalLink(event.target);
+      if (link && link === activeLink) positionPreview(link, event);
+    });
+    document.addEventListener("pointerout", (event) => {
+      const link = getExternalLink(event.target);
+      if (!link || link !== activeLink) return;
+      if (
+        event.relatedTarget instanceof Node &&
+        (link.contains(event.relatedTarget) || preview.contains(event.relatedTarget))
+      ) return;
+      hidePreview();
+    });
+    document.addEventListener("focusin", (event) => {
+      const link = getExternalLink(event.target);
+      if (link) showPreview(link);
+    });
+    document.addEventListener("focusout", (event) => {
+      const link = getExternalLink(event.target);
+      if (!link || link !== activeLink) return;
+      if (
+        event.relatedTarget instanceof Node &&
+        (link.contains(event.relatedTarget) || preview.contains(event.relatedTarget))
+      ) return;
+      hidePreview();
+    });
+    preview.addEventListener("pointerover", () => window.clearTimeout(hideTimer));
+    preview.addEventListener("pointerout", (event) => {
+      if (
+        event.relatedTarget instanceof Node &&
+        (preview.contains(event.relatedTarget) || activeLink?.contains(event.relatedTarget))
+      ) return;
+      hidePreview();
+    });
+    window.addEventListener("scroll", hidePreview, { passive: true });
+    window.addEventListener("resize", hidePreview);
+  }
+
   function createSocialProfileCard(profile) {
     const card = document.createElement("a");
     card.className = "social-profile-card";
@@ -1457,6 +1671,7 @@
     if (!hero) return;
 
     ensureMarketStyles();
+    ensureLinkPreviews();
     hero.id = "home";
     hero.classList.add("campaign-hero");
     addLogoVideoTitle(hero);
