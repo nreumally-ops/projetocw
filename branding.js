@@ -588,7 +588,7 @@
           transition: none;
         }
       }
-      #campaign-background-layer .campaign-background-image {
+      #campaign-background-layer .campaign-background-video {
         position: absolute;
         inset: 0;
         z-index: 0;
@@ -598,6 +598,34 @@
         opacity: 0.68;
         pointer-events: none;
         user-select: none;
+      }
+      #campaign-background-audio {
+        position: fixed;
+        right: 16px;
+        bottom: 16px;
+        z-index: 3;
+        max-width: calc(100vw - 32px);
+        border: 1px solid rgba(255, 255, 255, 0.65);
+        padding: 10px 14px;
+        background: rgba(0, 0, 0, 0.84);
+        color: #fff;
+        font: inherit;
+        font-size: 13px;
+        font-weight: 800;
+        cursor: pointer;
+      }
+      #campaign-background-audio:hover {
+        background: #c13a3c;
+      }
+      #campaign-background-audio:focus-visible {
+        outline: 2px solid #fff8ed;
+        outline-offset: 4px;
+      }
+      @media (max-width: 640px) {
+        #campaign-background-audio {
+          right: 12px;
+          bottom: 12px;
+        }
       }
       #root .campaign-app-shell {
         min-height: 0 !important;
@@ -1379,6 +1407,61 @@
     return section;
   }
 
+  function updateBackgroundAudioButton(button, video, language) {
+    const soundEnabled = !video.muted;
+    button.textContent = soundEnabled
+      ? language === "EN" ? "Disable sound" : "Desativar som"
+      : language === "EN" ? "Enable sound" : "Ativar som";
+    button.setAttribute("aria-pressed", String(soundEnabled));
+  }
+
+  function ensureCampaignBackground(language) {
+    let backgroundLayer = document.getElementById("campaign-background-layer");
+    if (!backgroundLayer) {
+      backgroundLayer = document.createElement("div");
+      backgroundLayer.id = "campaign-background-layer";
+      backgroundLayer.setAttribute("aria-hidden", "true");
+      document.body.prepend(backgroundLayer);
+    }
+
+    let video = backgroundLayer.querySelector(".campaign-background-video");
+    if (!video) {
+      video = document.createElement("video");
+      video.className = "campaign-background-video";
+      video.src = "/assets/16yyDyhtb-uBpIrq.mp4";
+      video.autoplay = true;
+      video.loop = true;
+      video.muted = true;
+      video.volume = 0.45;
+      video.playsInline = true;
+      video.preload = "auto";
+      video.tabIndex = -1;
+      video.setAttribute("aria-hidden", "true");
+      backgroundLayer.append(video);
+      video.play().catch(() => {});
+    }
+
+    let audioButton = document.getElementById("campaign-background-audio");
+    if (!audioButton) {
+      audioButton = document.createElement("button");
+      audioButton.id = "campaign-background-audio";
+      audioButton.type = "button";
+      audioButton.addEventListener("click", () => {
+        video.muted = !video.muted;
+        const currentLanguage = localStorage.getItem("ikiss_lang") === "EN" ? "EN" : "PT";
+        updateBackgroundAudioButton(audioButton, video, currentLanguage);
+        if (!video.muted) {
+          video.play().catch(() => {
+            video.muted = true;
+            updateBackgroundAudioButton(audioButton, video, currentLanguage);
+          });
+        }
+      });
+      document.body.append(audioButton);
+    }
+    updateBackgroundAudioButton(audioButton, video, language);
+  }
+
   function addLogoVideoTitle(hero) {
     const heading = hero.querySelector(".display-heading");
     if (!heading || hero.querySelector(".campaign-logo-video")) return;
@@ -1437,22 +1520,7 @@
     hero.id = "home";
     hero.classList.add("campaign-hero");
     addLogoVideoTitle(hero);
-    if (!document.getElementById("campaign-background-layer")) {
-      const backgroundLayer = document.createElement("div");
-      backgroundLayer.id = "campaign-background-layer";
-      backgroundLayer.setAttribute("aria-hidden", "true");
-
-      const backgroundImage = document.createElement("img");
-      backgroundImage.className = "campaign-background-image";
-      backgroundImage.src = "/assets/bandeiracw.jpg";
-      backgroundImage.alt = "";
-      backgroundImage.loading = "eager";
-      backgroundImage.decoding = "async";
-      backgroundImage.setAttribute("aria-hidden", "true");
-      backgroundImage.tabIndex = -1;
-      backgroundLayer.append(backgroundImage);
-      document.body.prepend(backgroundLayer);
-    }
+    ensureCampaignBackground(language);
     const appShell = Array.from(root.children).find(
       (child) => child.classList.contains("min-h-screen") && child.classList.contains("bg-background"),
     );

@@ -29,6 +29,7 @@ Site estático do projeto cwmunismo.
 - 2026-10-22: Replaced the page background video with the bandeiracw image, keeping the logo video.
 - 2026-10-26: Fixed the English hero action label so it displays SUPPORT instead of Create your profile.
 - 2026-10-26: Removed the hero tagline and description, and changed the Portuguese action label to UNI-VOS.
+- 2026-10-26: Replaced the page background image with the downloaded looping video and added an audio toggle.
 
 - `index.html` serves the Pátria Vermelha portal with Home, Blog, and Docs views.
 - `assets/` contains compiled bundles, local profile images, organization logos, the `bandeiracw.jpg` page background, the `logo2harpia-mask.png` video mask, reference covers, the favicon, the static `cwmunismo.pw.jpg` social preview, and the animated GIF.
