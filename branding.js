@@ -1638,7 +1638,7 @@
     video.muted = true;
     video.volume = 0.45;
     video.playsInline = true;
-    video.preload = "metadata";
+    video.preload = "auto";
     frame.addEventListener("pointerenter", () => {
       video.muted = false;
       video.play().catch(() => {
@@ -1648,15 +1648,18 @@
     frame.addEventListener("pointerleave", () => {
       video.muted = true;
     });
-    video.addEventListener("canplay", () => {
+    const resumeLogoVideo = () => {
       if (!document.hidden && video.paused) video.play().catch(() => {});
-    });
+    };
+    video.addEventListener("loadeddata", resumeLogoVideo);
+    video.addEventListener("canplay", resumeLogoVideo);
+    window.addEventListener("pageshow", resumeLogoVideo);
     document.addEventListener("visibilitychange", () => {
       if (document.hidden) {
         video.muted = true;
         return;
       }
-      if (video.paused) video.play().catch(() => {});
+      resumeLogoVideo();
     });
     frame.append(video);
     heading.insertAdjacentElement("beforebegin", frame);
