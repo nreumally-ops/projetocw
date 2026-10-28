@@ -31,9 +31,10 @@ Site estático do projeto cwmunismo.
 - 2026-10-26: Removed the hero tagline and description, and changed the Portuguese action label to UNI-VOS.
 - 2026-10-26: Restored the bandeiracw.jpg page background and removed the video audio control.
 - 2026-10-27: Limited Microlink hover previews to external text links, excluding profile cards.
+- 2026-10-28: Replaced the masked logo video and enabled its audio on hover.
 
 - `index.html` serves the Pátria Vermelha portal with Home, Blog, and Docs views.
-- `assets/` contains compiled bundles, local profile images, organization logos, the `bandeiracw.jpg` page background, the `logo2harpia-mask.png` video mask, reference covers, the favicon, the static `cwmunismo.pw.jpg` social preview, and the animated GIF.
+- `assets/` contains compiled bundles, local profile images, organization logos, the `bandeiracw.jpg` page background, the `campaign-logo-hover.mp4` logo video, the `logo2harpia-mask.png` video mask, reference covers, the favicon, the static `cwmunismo.pw.jpg` social preview, and the animated GIF.
 - The homepage uses the bandeiracw.jpg background; link previews prioritize the static image for compatibility, with the optimized 480 x 384 animated GIF as a secondary Open Graph image.
 - APOIE currently links to `https://x.com/cwmunista`.
 - `server.py` serves the allowlisted static files, security headers, and the optional PostgreSQL support endpoint.

@@ -1632,12 +1632,22 @@
 
     const video = document.createElement("video");
     video.className = "campaign-logo-video__media";
-    video.src = "/ssstwitter.com_1791476129925.mp4";
+    video.src = "/assets/campaign-logo-hover.mp4";
     video.autoplay = true;
     video.loop = true;
     video.muted = true;
+    video.volume = 0.45;
     video.playsInline = true;
     video.preload = "metadata";
+    frame.addEventListener("pointerenter", () => {
+      video.muted = false;
+      video.play().catch(() => {
+        video.muted = true;
+      });
+    });
+    frame.addEventListener("pointerleave", () => {
+      video.muted = true;
+    });
     frame.append(video);
     heading.insertAdjacentElement("beforebegin", frame);
     video.play().catch(() => {});
