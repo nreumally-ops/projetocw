@@ -1648,6 +1648,16 @@
     frame.addEventListener("pointerleave", () => {
       video.muted = true;
     });
+    video.addEventListener("canplay", () => {
+      if (!document.hidden && video.paused) video.play().catch(() => {});
+    });
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) {
+        video.muted = true;
+        return;
+      }
+      if (video.paused) video.play().catch(() => {});
+    });
     frame.append(video);
     heading.insertAdjacentElement("beforebegin", frame);
     video.play().catch(() => {});
