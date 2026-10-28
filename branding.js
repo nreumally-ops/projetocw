@@ -1373,6 +1373,11 @@
       if (!(target instanceof Element)) return null;
       const link = target.closest("a[href]");
       if (!link || link === preview) return null;
+      if (
+        !link.textContent.trim() ||
+        link.querySelector("img, svg, video, canvas, picture") ||
+        link.closest("nav, button, [role='button'], .social-profile-card")
+      ) return null;
 
       try {
         const url = new URL(link.href, window.location.href);
