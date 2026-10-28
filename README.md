@@ -33,6 +33,7 @@ Site estático do projeto cwmunismo.
 - 2026-10-27: Limited Microlink hover previews to external text links, excluding profile cards.
 - 2026-10-28: Replaced the masked logo video and enabled its audio on hover.
 - 2026-10-28: Preload the logo video and resume it on page load or tab return.
+- 2026-10-28: Add an instant logo-video poster and tap-to-toggle audio on mobile.
 
 - `index.html` serves the Pátria Vermelha portal with Home, Blog, and Docs views.
 - `assets/` contains compiled bundles, local profile images, organization logos, the `bandeiracw.jpg` page background, the `campaign-logo-hover.mp4` logo video, the `logo2harpia-mask.png` video mask, reference covers, the favicon, the static `cwmunismo.pw.jpg` social preview, and the animated GIF.

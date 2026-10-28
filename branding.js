@@ -245,6 +245,10 @@
         -webkit-mask-position: center;
         -webkit-mask-size: 100% 100%;
       }
+      #root section.campaign-hero .campaign-logo-video:focus-visible {
+        outline: 2px solid #fff8ed;
+        outline-offset: 6px;
+      }
       #root section.campaign-hero p.label-caps.mb-8 {
         display: inline-block;
         padding: 10px 14px;
@@ -1628,25 +1632,43 @@
     heading.classList.add("campaign-logo-heading");
     const frame = document.createElement("div");
     frame.className = "campaign-logo-video";
-    frame.setAttribute("aria-hidden", "true");
+    frame.setAttribute("role", "button");
+    frame.setAttribute("tabindex", "0");
+    frame.setAttribute("aria-label", "Ativar som no vídeo da logo");
+    frame.setAttribute("aria-pressed", "false");
 
     const video = document.createElement("video");
     video.className = "campaign-logo-video__media";
     video.src = "/assets/campaign-logo-hover.mp4";
+    video.poster = "/assets/campaign-logo-poster.jpg";
     video.autoplay = true;
     video.loop = true;
     video.muted = true;
     video.volume = 0.45;
     video.playsInline = true;
     video.preload = "auto";
-    frame.addEventListener("pointerenter", () => {
-      video.muted = false;
-      video.play().catch(() => {
-        video.muted = true;
-      });
+    video.setAttribute("aria-hidden", "true");
+    const setLogoSound = (enabled) => {
+      video.muted = !enabled;
+      frame.setAttribute("aria-pressed", String(enabled));
+      frame.setAttribute("aria-label", `${enabled ? "Silenciar" : "Ativar som no"} vídeo da logo`);
+      if (enabled) {
+        video.play().catch(() => setLogoSound(false));
+      }
+    };
+    frame.addEventListener("pointerenter", (event) => {
+      if (event.pointerType === "mouse") setLogoSound(true);
     });
-    frame.addEventListener("pointerleave", () => {
-      video.muted = true;
+    frame.addEventListener("pointerleave", (event) => {
+      if (event.pointerType === "mouse") setLogoSound(false);
+    });
+    frame.addEventListener("pointerdown", (event) => {
+      if (event.pointerType === "touch") setLogoSound(video.muted);
+    });
+    frame.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter" && event.key !== " ") return;
+      event.preventDefault();
+      setLogoSound(video.muted);
     });
     const resumeLogoVideo = () => {
       if (!document.hidden && video.paused) video.play().catch(() => {});
