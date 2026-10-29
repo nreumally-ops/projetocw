@@ -554,6 +554,8 @@
         box-shadow: 1px 1px 0 #742527;
       }
       #root section.campaign-hero button[data-campaign-action="support"] {
+        position: relative;
+        isolation: isolate;
         min-width: min(196px, calc(100vw - 56px));
         min-height: 58px;
         padding: 0 25px !important;
@@ -568,7 +570,45 @@
         filter: drop-shadow(4px 4px 0 #fff8ed) drop-shadow(8px 8px 0 #682123);
         transition: transform 160ms ease, filter 160ms ease, background-color 160ms ease;
       }
-      #root section.campaign-hero button[data-campaign-action="support"] svg {
+      #root section.campaign-hero .fdc-points_wrapper {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        overflow: hidden;
+        pointer-events: none;
+      }
+      #root section.campaign-hero .fdc-point {
+        position: absolute;
+        bottom: -5px;
+        left: var(--fdc-left);
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: #fff8ed;
+        opacity: 0;
+      }
+      #root section.campaign-hero button[data-campaign-action="support"]:hover .fdc-point,
+      #root section.campaign-hero button[data-campaign-action="support"]:focus-visible .fdc-point {
+        animation: fdc-float 900ms ease-out var(--fdc-delay) infinite;
+      }
+      @keyframes fdc-float {
+        0% { opacity: 0; transform: translate3d(0, 0, 0) scale(0.5); }
+        18% { opacity: 0.9; }
+        100% { opacity: 0; transform: translate3d(var(--fdc-drift), -52px, 0) scale(0); }
+      }
+      #root section.campaign-hero .fdc-inner {
+        position: relative;
+        z-index: 1;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+      }
+      #root section.campaign-hero .fdc-icon {
+        display: block;
+        width: 18px;
+        height: 18px;
+        flex: 0 0 auto;
         margin: 0;
         transition: transform 160ms ease;
       }
@@ -590,6 +630,9 @@
         #root section.campaign-hero button[data-campaign-action="support"],
         #root section.campaign-hero button[data-campaign-action="support"] svg {
           transition: none;
+        }
+        #root section.campaign-hero button[data-campaign-action="support"] .fdc-point {
+          animation: none !important;
         }
       }
       #campaign-background-layer .campaign-background-image {
@@ -1316,8 +1359,48 @@
     button.dataset.campaignAction = action;
     button.type = "button";
     setButtonLabel(button, label);
+    if (action === "support") decorateFloatingDotsButton(button);
     addActionHandler(button, action);
     return button;
+  }
+
+  function decorateFloatingDotsButton(button) {
+    if (button.dataset.fdcReady === "true") return;
+
+    const points = document.createElement("span");
+    points.className = "fdc-points_wrapper";
+    points.setAttribute("aria-hidden", "true");
+    for (let index = 0; index < 10; index += 1) {
+      const point = document.createElement("i");
+      point.className = "fdc-point";
+      point.style.setProperty("--fdc-left", `${8 + index * 9.2}%`);
+      point.style.setProperty("--fdc-drift", `${(index % 2 === 0 ? 1 : -1) * (8 + (index % 4) * 5)}px`);
+      point.style.setProperty("--fdc-delay", `${index * 70}ms`);
+      points.append(point);
+    }
+
+    const inner = document.createElement("span");
+    inner.className = "fdc-inner";
+    const label = document.createElement("span");
+    label.className = "fdc-label";
+    label.textContent = button.textContent.trim();
+    const icon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    icon.classList.add("fdc-icon");
+    icon.setAttribute("fill", "none");
+    icon.setAttribute("stroke", "currentColor");
+    icon.setAttribute("viewBox", "0 0 24 24");
+    icon.setAttribute("aria-hidden", "true");
+    icon.setAttribute("stroke-linecap", "round");
+    icon.setAttribute("stroke-linejoin", "round");
+    icon.setAttribute("stroke-width", "1.5");
+    const horizontal = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    horizontal.setAttribute("d", "M5 12h14");
+    const arrow = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    arrow.setAttribute("d", "m12 5 7 7-7 7");
+    icon.append(horizontal, arrow);
+    inner.append(label, icon);
+    button.replaceChildren(points, inner);
+    button.dataset.fdcReady = "true";
   }
 
   function createNavigationMenu() {
