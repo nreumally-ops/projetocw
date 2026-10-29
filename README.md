@@ -33,10 +33,12 @@ Site estático do projeto cwmunismo.
 - 2026-10-27: Limited Microlink hover previews to external text links, excluding profile cards.
 - 2026-10-28: Replaced the masked logo video and enabled its audio on hover.
 - 2026-10-28: Preload the logo video and resume it on page load or tab return.
+- 2026-10-28: Resume the logo video when internal navigation brings it back into view.
 - 2026-10-28: Add an instant logo-video poster and tap-to-toggle audio on mobile.
 - 2026-10-28: Add the floating dots and arrow effect to the hero call-to-action.
 - 2026-10-28: Open a styled join form with name and email fields from UNI-VOS.
 - 2026-10-29: Bust cached branding code and remove the CTA's fallback /register link.
+- 2026-10-29: Resume the logo video when internal navigation returns to Home.
 - 2026-10-29: Send join form submissions to the configured site owner via Resend.
 
 - `index.html` serves the Pátria Vermelha portal with Home, Blog, and Docs views.

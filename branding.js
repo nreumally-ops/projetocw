@@ -1968,8 +1968,17 @@
       }
       resumeLogoVideo();
     });
+    window.addEventListener("hashchange", () => {
+      if (!window.location.hash || window.location.hash === "#home") {
+        resumeLogoVideo();
+      }
+    });
     frame.append(video);
     heading.insertAdjacentElement("beforebegin", frame);
+    const logoVisibilityObserver = new IntersectionObserver((entries) => {
+      if (entries.some((entry) => entry.isIntersecting)) resumeLogoVideo();
+    });
+    logoVisibilityObserver.observe(frame);
     video.play().catch(() => {});
   }
 
