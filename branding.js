@@ -1515,7 +1515,10 @@
     button.dataset.campaignAction = action;
     button.type = "button";
     setButtonLabel(button, label);
-    if (action === "support") decorateFloatingDotsButton(button);
+    if (action === "support") {
+      button.closest("a[href]")?.removeAttribute("href");
+      decorateFloatingDotsButton(button);
+    }
     addActionHandler(button, action);
     return button;
   }
