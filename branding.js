@@ -4,7 +4,6 @@
     return;
   }
 
-  const supportUrl = "https://x.com/cwmunista";
   const marketId = "campaign-support-market";
 
   const campaign = {
@@ -635,6 +634,105 @@
           animation: none !important;
         }
       }
+        #campaign-join-dialog {
+          position: fixed;
+          width: min(460px, calc(100vw - 32px));
+          max-width: 460px;
+          max-height: min(88vh, 640px);
+          padding: 30px;
+          overflow: auto;
+          border: 1px solid rgba(255, 248, 237, 0.72);
+          background: #100e0e;
+          color: #fff8ed;
+          box-shadow: 12px 12px 0 rgba(104, 33, 35, 0.82);
+        }
+        #campaign-join-dialog[open] {
+          animation: join-dialog-in 180ms ease-out both;
+        }
+        #campaign-join-dialog::backdrop {
+          background: rgba(0, 0, 0, 0.82);
+          backdrop-filter: blur(3px);
+        }
+        @keyframes join-dialog-in {
+          from { opacity: 0; transform: translateY(12px) scale(0.98); }
+          to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        #campaign-join-dialog .join-dialog__close {
+          position: absolute;
+          top: 12px;
+          right: 12px;
+          display: grid;
+          width: 40px;
+          height: 40px;
+          place-items: center;
+          border: 1px solid rgba(255, 248, 237, 0.35);
+          background: transparent;
+          color: inherit;
+          cursor: pointer;
+        }
+        #campaign-join-dialog .join-dialog__close svg {
+          width: 18px;
+          height: 18px;
+        }
+        #campaign-join-dialog .join-dialog__title {
+          margin: 0 42px 24px 0;
+          color: #fff8ed;
+          font: 900 22px/1.2 Inter, sans-serif;
+        }
+        #campaign-join-dialog .join-dialog__fields {
+          display: grid;
+          gap: 18px;
+        }
+        #campaign-join-dialog .join-dialog__field {
+          display: grid;
+          gap: 8px;
+          color: #fff8ed;
+          font: 700 13px/1.3 Inter, sans-serif;
+        }
+        #campaign-join-dialog .join-dialog__field input {
+          box-sizing: border-box;
+          width: 100%;
+          min-height: 48px;
+          padding: 0 12px;
+          border: 1px solid rgba(255, 248, 237, 0.48);
+          border-radius: 0;
+          background: #070707;
+          color: #fff;
+          font: 500 16px/1.3 Inter, sans-serif;
+        }
+        #campaign-join-dialog .join-dialog__field input:focus-visible {
+          outline: 2px solid #c3423f;
+          outline-offset: 2px;
+        }
+        #campaign-join-dialog .join-dialog__submit {
+          display: inline-flex;
+          min-height: 50px;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          margin-top: 22px;
+          padding: 0 18px;
+          border: 1px solid #fff8ed;
+          background: #a72e30;
+          color: #fff;
+          font: 900 13px/1 Inter, sans-serif;
+          cursor: pointer;
+        }
+        #campaign-join-dialog .join-dialog__submit svg {
+          width: 17px;
+          height: 17px;
+        }
+        #campaign-join-dialog .join-dialog__status {
+          min-height: 1.4em;
+          margin: 14px 0 0;
+          color: #ffd2cc;
+          font: 500 13px/1.45 Inter, sans-serif;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          #campaign-join-dialog[open] {
+            animation: none;
+          }
+        }
       #campaign-background-layer .campaign-background-image {
         position: absolute;
         inset: 0;
@@ -1296,7 +1394,7 @@
         event.preventDefault();
         event.stopImmediatePropagation();
         if (action === "support") {
-          window.location.assign(supportUrl);
+          openJoinDialog(button);
           return;
         }
 
@@ -1346,6 +1444,64 @@
       },
       { capture: true },
     );
+  }
+
+  function openJoinDialog(opener) {
+    let dialog = document.getElementById("campaign-join-dialog");
+    if (!dialog) {
+      dialog = document.createElement("dialog");
+      dialog.id = "campaign-join-dialog";
+      dialog.setAttribute("aria-labelledby", "campaign-join-title");
+      dialog.innerHTML = `
+        <button class="join-dialog__close" type="button" aria-label="Fechar formulário">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" aria-hidden="true">
+            <path d="m18 6-12 12M6 6l12 12"></path>
+          </svg>
+        </button>
+        <h2 class="join-dialog__title" id="campaign-join-title">Junte-se</h2>
+        <form class="join-dialog__form">
+          <div class="join-dialog__fields">
+            <label class="join-dialog__field" for="campaign-join-name">
+              Nome
+              <input id="campaign-join-name" name="name" type="text" autocomplete="name" required>
+            </label>
+            <label class="join-dialog__field" for="campaign-join-email">
+              E-mail
+              <input id="campaign-join-email" name="email" type="email" autocomplete="email" required>
+            </label>
+          </div>
+          <button class="join-dialog__submit" type="submit">
+            Continuar
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" aria-hidden="true">
+              <path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path>
+            </svg>
+          </button>
+          <p class="join-dialog__status" role="status" aria-live="polite"></p>
+        </form>
+      `;
+
+      dialog.querySelector(".join-dialog__close").addEventListener("click", () => dialog.close());
+      dialog.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+          event.preventDefault();
+          dialog.close();
+        }
+      });
+      dialog.querySelector(".join-dialog__form").addEventListener("submit", (event) => {
+        event.preventDefault();
+        dialog.querySelector(".join-dialog__status").textContent =
+          "O cadastro ainda não está conectado. Seus dados não foram enviados.";
+      });
+      dialog.addEventListener("click", (event) => {
+        if (event.target === dialog) dialog.close();
+      });
+      dialog.addEventListener("close", () => opener.focus());
+      document.body.append(dialog);
+    }
+
+    dialog.querySelector(".join-dialog__status").textContent = "";
+    if (!dialog.open) dialog.showModal();
+    dialog.querySelector("#campaign-join-name").focus();
   }
 
   function configureHeroAction(hero, sourceLabel, action, label) {
