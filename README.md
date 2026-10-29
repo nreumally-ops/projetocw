@@ -37,10 +37,12 @@ Site estático do projeto cwmunismo.
 - 2026-10-28: Add the floating dots and arrow effect to the hero call-to-action.
 - 2026-10-28: Open a styled join form with name and email fields from UNI-VOS.
 - 2026-10-29: Bust cached branding code and remove the CTA's fallback /register link.
+- 2026-10-29: Send join form submissions to the configured site owner via Resend.
 
 - `index.html` serves the Pátria Vermelha portal with Home, Blog, and Docs views.
 - `assets/` contains compiled bundles, local profile images, organization logos, the `bandeiracw.jpg` page background, the `campaign-logo-hover.mp4` logo video, the `logo2harpia-mask.png` video mask, reference covers, the favicon, the static `cwmunismo.pw.jpg` social preview, and the animated GIF.
 - The homepage uses the bandeiracw.jpg background; link previews prioritize the static image for compatibility, with the optimized 480 x 384 animated GIF as a secondary Open Graph image.
 - APOIE currently links to `https://x.com/cwmunista`.
 - `server.py` serves the allowlisted static files, security headers, and the optional PostgreSQL support endpoint.
+- The `/api/join` Vercel function emails form submissions to `nreumally@gmail.com`; configure `RESEND_API_KEY` and a verified `RESEND_FROM_EMAIL` in the Vercel project environment.
 - Vercel should publish the existing `nreumally-ops/projetocw` repository as a static site; unsupported login/admin routes are not part of this import.

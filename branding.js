@@ -683,6 +683,16 @@
           display: grid;
           gap: 18px;
         }
+        #campaign-join-dialog .join-dialog__honey {
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          padding: 0;
+          overflow: hidden;
+          clip: rect(0, 0, 0, 0);
+          white-space: nowrap;
+          clip-path: inset(50%);
+        }
         #campaign-join-dialog .join-dialog__field {
           display: grid;
           gap: 8px;
@@ -1470,6 +1480,10 @@
               <input id="campaign-join-email" name="email" type="email" autocomplete="email" required>
             </label>
           </div>
+          <label class="join-dialog__honey" aria-hidden="true" for="campaign-join-website">
+            Website
+            <input id="campaign-join-website" name="website" type="text" tabindex="-1" autocomplete="off">
+          </label>
           <button class="join-dialog__submit" type="submit">
             Continuar
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" aria-hidden="true">
@@ -1487,10 +1501,39 @@
           dialog.close();
         }
       });
-      dialog.querySelector(".join-dialog__form").addEventListener("submit", (event) => {
+      dialog.querySelector(".join-dialog__form").addEventListener("submit", async (event) => {
         event.preventDefault();
-        dialog.querySelector(".join-dialog__status").textContent =
-          "O cadastro ainda não está conectado. Seus dados não foram enviados.";
+        const form = event.currentTarget;
+        const submit = form.querySelector(".join-dialog__submit");
+        const status = form.querySelector(".join-dialog__status");
+        if (submit.disabled) return;
+
+        submit.disabled = true;
+        submit.setAttribute("aria-busy", "true");
+        status.textContent = "Enviando…";
+
+        try {
+          const response = await fetch("/api/join", {
+            method: "POST",
+            credentials: "same-origin",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              name: form.elements.name.value,
+              email: form.elements.email.value,
+              website: form.elements.website.value,
+            }),
+          });
+          const result = await response.json().catch(() => ({}));
+          if (!response.ok) throw new Error(result.error || "Não foi possível enviar. Tente novamente.");
+
+          form.reset();
+          status.textContent = "Cadastro recebido. Obrigado!";
+        } catch (error) {
+          status.textContent = error.message || "Não foi possível enviar. Tente novamente.";
+        } finally {
+          submit.disabled = false;
+          submit.removeAttribute("aria-busy");
+        }
       });
       dialog.addEventListener("click", (event) => {
         if (event.target === dialog) dialog.close();
